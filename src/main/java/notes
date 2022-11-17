@@ -20,5 +20,16 @@ maybe: create seperate groups
 #ticketfactory
 creates all different kinds of tickets
 
-#personfactory
-creates persons; ->indebted person,
+#observers
+updateobserver
+guiobserver
+
+#controller
+binds everything together
+"main class" for all functionality
+-gets database
+-calls methods
+...
+
+
+ticket gemaakt -> ticket even of oneven split bill -> controller geeft resultaat door aan persoon -> bill maakt eindrekening
