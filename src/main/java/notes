@@ -1,0 +1,24 @@
+##Ideas
+Bill computes final bill...
+Ticket database contains tickets and person that created them
+tickets holds creator + indebted
+
+#Person
+name;
+amount indebted;
+amount paid;(total over all tickets)
+get involvedtickets(ticketdatabase)
+
+
+#ticketdatabase
+zoek persoon -> tickets gemaakt door persoon
+
+#persondatabase
+holds list of all people involved
+maybe: create seperate groups
+
+#ticketfactory
+creates all different kinds of tickets
+
+#personfactory
+creates persons; ->indebted person,
