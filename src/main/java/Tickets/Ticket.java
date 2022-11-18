@@ -1,25 +1,29 @@
 package Tickets;
 
+import Person.Person;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public abstract class Ticket {
-    protected String payer;
+    protected Person creator;
     protected double amountUpfront;
     protected String type;
-    protected List<String> payers;
+    protected HashMap<Person, Double> payers;
 
-    public Ticket(String payer, double amountUpfront,String type){
+    public Ticket(Person creator, double amountUpfront, String type){
         this.amountUpfront= amountUpfront;
-        this.payer = payer;
+        this.creator = creator;
         this.type = type;
-        this.payers = new ArrayList<String>();
+        this.payers = new HashMap<Person, Double>();
+        this.payers.put(creator,-amountUpfront); //creator pays upfront so his balance becomes -amountUpfront
     }
 
     public abstract void divideBill();
 
-    public String getPayer() {
-        return payer;
+    public Person getCreator() {
+        return creator;
     }
 
     public double getAmountUpfront() {
@@ -30,8 +34,8 @@ public abstract class Ticket {
         return type;
     }
 
-    public void setPayer(String payer) {
-        this.payer = payer;
+    public void setCreator(Person creator) {
+        this.creator = creator;
     }
 
     public void setAmountUpfront(double amountUpfront) {
@@ -40,5 +44,31 @@ public abstract class Ticket {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public List<Person> getPayers(){
+        ArrayList<Person> payerPeople = new ArrayList<Person>();
+        payerPeople.addAll(payers.keySet());
+        return payerPeople;
+    }
+
+    public void addPayer(Person person, double amount){
+        payers.put(person,amount);
+    }
+
+    public Double getAmount(Person person){
+        return payers.get(person); //gives back value linked to person
+    }
+
+    public void removePayer(Person person){
+        payers.remove(person);
+    }
+
+    public List<Double> getAllAmounts(){
+        ArrayList<Double> amounts = new ArrayList<Double>();
+        for(Person i : payers.keySet()){
+            amounts.add(payers.get(i));
+        }
+        return amounts;
     }
 }
