@@ -9,10 +9,10 @@ import java.util.List;
 public abstract class Ticket {
     protected Person creator;
     protected double amountUpfront;
-    protected String type;
+    protected TicketTypes type;
     protected HashMap<Person, Double> payers;
 
-    public Ticket(Person creator, double amountUpfront, String type){
+    public Ticket(Person creator, double amountUpfront, TicketTypes type){
         this.amountUpfront= amountUpfront;
         this.creator = creator;
         this.type = type;
@@ -30,7 +30,7 @@ public abstract class Ticket {
         return amountUpfront;
     }
 
-    public String getType() {
+    public TicketTypes getType() {
         return type;
     }
 
@@ -42,7 +42,7 @@ public abstract class Ticket {
         this.amountUpfront = amountUpfront;
     }
 
-    public void setType(String type) {
+    public void setType(TicketTypes type) {
         this.type = type;
     }
 

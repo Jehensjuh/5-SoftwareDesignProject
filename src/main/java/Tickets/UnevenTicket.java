@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class UnevenTicket extends Ticket{
 
 
-    public UnevenTicket(Person creator, double amountUpfront, String type) {
+    public UnevenTicket(Person creator, double amountUpfront, TicketTypes type) {
         super(creator, amountUpfront, type);
     }
 

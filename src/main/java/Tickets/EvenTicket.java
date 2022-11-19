@@ -5,7 +5,7 @@ import Person.Person;
 public class EvenTicket extends Ticket {
 
 
-    public EvenTicket(Person creator, double amountUpfront, String type) {
+    public EvenTicket(Person creator, double amountUpfront, TicketTypes type) {
         super(creator, amountUpfront, type);
     }
     /**
