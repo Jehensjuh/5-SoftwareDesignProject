@@ -1,7 +1,10 @@
 ##Ideas
 Bill computes final bill...
 Ticket database contains tickets and person that created them
-tickets holds creator + indebted
+
+#Ticket
+tickets holds creator + indebted for that specific ticket + amounts paid
+ticket methods : split bill depending on even or uneven
 
 #Person
 name;

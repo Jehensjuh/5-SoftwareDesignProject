@@ -3,8 +3,10 @@ package Controller;
 import Person.Person;
 import Database.PersonDatabase;
 
-public interface Controller
+public class Controller
 {
     //Functie om de database af te drukken
-    void printPersonDatabase();
+    void printPersonDatabase() {
+
+    }
 }
