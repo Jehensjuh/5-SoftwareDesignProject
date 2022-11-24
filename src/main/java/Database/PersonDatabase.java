@@ -26,6 +26,7 @@ public class PersonDatabase extends Database
         if(this.dbp.indexOf(p) != -1)
         {
             this.dbp.remove(p);
+            //change
         }
     }
 }
