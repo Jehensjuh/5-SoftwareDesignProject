@@ -22,7 +22,6 @@ public class TicketDatabase extends Database{
         return instance;
     }
 
-    @Override
     public void addEntry(Person creator, Ticket ticket) {
         for(Person i: tD.keySet()){
             if(i == creator){//if the person is already in the hashmap
