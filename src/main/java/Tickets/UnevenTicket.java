@@ -21,19 +21,19 @@ public class UnevenTicket extends Ticket{
         double tempValue = this.amountUpfront;
         ArrayList<Person> indebted = new ArrayList<Person>();
         for(Person i : payers.keySet()){
-            if(payers.get(i) == 0.0){ //if the person in question hasn't paid anything yet
-                indebted.add(i);    //name get's added to the list
+            if(this.getAmount(i) == 0){ //if the person in question hasn't paid anything yet
+                indebted.add(i);    //person get's added to the list
             }
             else{
                 if(i != this.creator){ //creator has paid upfront so value does not have to change
-                    tempValue -= payers.get(i); //total amount of debt decreases because a bit was already paid back
-                    payers.put(i, payers.get(i) * -1); //person has paid this amount so their value becomes a negative one now (used for further computations)
+                    tempValue -= this.getAmount(i); //total amount of debt decreases because a bit was already paid back
+                    payers.put(i, this.getAmount(i) * -1); //person has paid this amount so their value becomes a negative one now (used for further computations)
                 }
             }
         }
         amountDue = tempValue/indebted.size(); //remainder of debt get's evenly devided over all remaining persons
         for(Person i:indebted){
-            payers.put(i,payers.get(i) - amountDue); //these people have paid 0, so 0 - amountDue leaves a negative balance
+            payers.put(i,this.getAmount(i) - amountDue); //these people have paid 0, so 0 - amountDue leaves a negative balance
         }
     }
 }
