@@ -45,9 +45,5 @@ public class TicketFactory_UTest {
         assertThat(restaurantTicket, instanceOf(UnevenTicket.class));
         assertThat(taxiTicket, instanceOf(EvenTicket.class));
     }
-    @Test
-    public void t_isEven(){
-        assertThat("testing restaurant ticket for being uneven", !f.isEven(restaurantTicket.getType()));
-        assertThat("testing taxi ticket for being even", f.isEven(taxiTicket.getType()));
-    }
+
 }
