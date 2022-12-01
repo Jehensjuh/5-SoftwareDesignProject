@@ -20,3 +20,49 @@ public class Person {
         this.amountPaid = amountPaid;
     }
 }
+
+/*
+import Controller.PersonController;
+import Controller.Controller;
+import Database.PersonDatabase;
+import Database.Database;
+import Person.Person;
+
+public class Main
+{
+    public static void main(String[] args)
+    {
+        Main main = new Main();
+        main.run();
+    }
+
+    public Main()
+    {
+
+    }
+
+    public void run()
+    {
+        PersonDatabase dbp = new PersonDatabase();
+        Controller register= new PersonController(dbp);
+
+        Person Alexander = new Person("Alexander");
+        Person Jens = new Person("Jens");
+
+        register.addPerson(Alexander);
+        register.addPerson(Jens);
+
+        Alexander.setAmountPaid(50);
+
+        register.printPersonDatabase();
+
+        register.removePerson(Alexander);
+
+        register.printPersonDatabase();
+
+        register.addPerson(Alexander);
+
+        register.printPersonDatabase();
+    }
+}
+ */

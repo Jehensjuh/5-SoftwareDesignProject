@@ -1,6 +1,7 @@
 package Database;
 
 import Person.Person;
+import Tickets.Ticket;
 
 import java.util.ArrayList;
 
@@ -26,7 +27,18 @@ public class PersonDatabase extends Database
         if(this.dbp.indexOf(p) != -1)
         {
             this.dbp.remove(p);
-            //change
+            p.setAmountPaid(0);
         }
+    }
+
+    //Functie om de lijst te printen
+    public void printDatabase()
+    {
+        System.out.println("Personen");
+        for (Person p : dbp)
+        {
+            System.out.println(p.getName() + " " + p.getAmountPaid());
+        }
+        System.out.println();
     }
 }
