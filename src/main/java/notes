@@ -12,7 +12,6 @@ amount indebted;
 amount paid;(total over all tickets)
 get involvedtickets(ticketdatabase)
 
-
 #ticketdatabase
 zoek persoon -> tickets gemaakt door persoon
 

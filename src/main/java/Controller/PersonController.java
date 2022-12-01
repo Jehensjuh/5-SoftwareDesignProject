@@ -1,29 +1,26 @@
 package Controller;
 
-import Database.Database;
 import Person.Person;
+import Database.Database;
+import Database.TicketDatabase;
 import Database.PersonDatabase;
+import Tickets.Ticket;
 
-<<<<<<< Updated upstream
-public class PersonController{
-=======
-public class PersonController extends Controller{
->>>>>>> Stashed changes
+public class PersonController extends Controller {
 
     private PersonDatabase dbp;
 
-    public PersonController(PersonDatabase dbp) {this.dbp = dbp;}
+    private TicketDatabase dbt;
+
+    public PersonController(PersonDatabase dbp, TicketDatabase dbt) {
+        this.dbp = dbp;
+        this.dbt = dbt;
+    }
 
     public PersonController() {}
 
-<<<<<<< Updated upstream
-
-    public void printPersonDatabase() {
-
-=======
     @Override
-    public void printPersonDatabase()
-    {
+    public void printPersonDatabase() {
         this.dbp.printDatabase();
     }
 
@@ -35,14 +32,13 @@ public class PersonController extends Controller{
     @Override
     public void removePerson(Person p) {
         dbp.removePerson(p);
->>>>>>> Stashed changes
     }
 
+    //Functie die al de tickets van de persoon geeft
+    @Override
+    public void getInvolvedTickets(Person p, TicketDatabase dbt)
+    {
+        dbp.getInvolvedTickets(p, dbt);
+    }
 
-//    public void printPersonDatabase() {
-//        for (Person person : dbp)
-//        {
-//            System.out.println(person.getName() + person.getAmountPaid());
-//        }
-//    }
 }

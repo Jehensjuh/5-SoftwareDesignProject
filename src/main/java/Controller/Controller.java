@@ -1,8 +1,12 @@
 package Controller;
 
+<<<<<<< HEAD
 import Database.Database;
 import Database.TicketDatabase;
 import Factory.TicketFactory;
+=======
+import Database.TicketDatabase;
+>>>>>>> Person
 import Person.Person;
 import Database.PersonDatabase;
 import Tickets.Ticket;
@@ -10,6 +14,7 @@ import Tickets.TicketTypes;
 
 public class Controller
 {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< Updated upstream
     //Functie om de database af te drukken
@@ -53,6 +58,8 @@ public class Controller
         tdb.addEntry(unevenTicket);
     }
 =======
+=======
+>>>>>>> Person
     //Functie om de database te printen
     public void printPersonDatabase() {};
 
@@ -61,5 +68,4 @@ public class Controller
 
     //Functie om een person te verwijderen
     public void removePerson(Person p) {};
->>>>>>> Stashed changes
 }

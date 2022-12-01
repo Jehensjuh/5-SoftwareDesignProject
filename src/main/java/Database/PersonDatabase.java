@@ -2,8 +2,10 @@ package Database;
 
 import Person.Person;
 import Tickets.Ticket;
+import Database.TicketDatabase;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class PersonDatabase extends Database
 {
@@ -26,7 +28,10 @@ public class PersonDatabase extends Database
     //Functie om een persoon toe te voegen
     public void addPerson(Person p)
     {
-        this.dbp.add(p);
+        if(this.dbp.indexOf(p) == -1)
+        {
+            this.dbp.add(p);
+        }
     }
 
     //Functie om een persoon te verwijderen
@@ -39,6 +44,25 @@ public class PersonDatabase extends Database
         }
     }
 
+    //Functie om een persoon te verwijderen op naam
+    public void removePersonName(String s)
+    {
+        for(Person p : dbp)
+        {
+            if(Objects.equals(p.getName(), s))
+            {
+                if (this.dbp.indexOf(p) != -1) {
+                    this.dbp.remove(p);
+                    p.setAmountPaid(0);
+                }
+            }
+            else
+            {
+                System.out.println("Name not found!");
+            }
+        }
+    }
+
     //Functie om de lijst te printen
     public void printDatabase()
     {
@@ -48,5 +72,31 @@ public class PersonDatabase extends Database
             System.out.println(p.getName() + " " + p.getAmountPaid());
         }
         System.out.println();
+    }
+
+    //Functie om te zien of een persoon in de database zit
+    public boolean inDatabase(Person p)
+    {
+        if(this.dbp.indexOf(p) != -1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    //Functie om te zien of een persoon in de database zit op naam
+    public boolean nameInDatabase(String s)
+    {
+        for(Person p : dbp)
+        {
+            if(Objects.equals(p.getName(), s))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
