@@ -28,7 +28,7 @@ public class UnevenTicket_ITest {
         t.addPayer(p2,10);
         t.addPayer(p3,0);
         t.addPayer(p4,0);
-        db.addEntry(p1,t);
+        db.addEntry(t);
     }
 
     @Test

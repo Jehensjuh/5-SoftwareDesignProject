@@ -28,8 +28,8 @@ public class TicketFactory_ITest {
 
         Ticket restaurantTicket = f.getTicket(p1, 100, TicketTypes.RestaurantTicket, "Restaurant 1");
         Ticket taxiTicket = f.getTicket(p2, 10, TicketTypes.TaxiTicket, "Taxi 1");
-        db.addEntry(p1, restaurantTicket);
-        db.addEntry(p2, taxiTicket);
+        db.addEntry(restaurantTicket);
+        db.addEntry(taxiTicket);
     }
 
     @Test

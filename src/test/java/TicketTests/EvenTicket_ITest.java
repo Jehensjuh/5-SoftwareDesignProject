@@ -25,7 +25,7 @@ public class EvenTicket_ITest {
         Ticket t = f.getTicket(p1,90, TicketTypes.AirplaneTicket,"air");
         t.addPayer(p2,0);
         t.addPayer(p3,0);
-        db.addEntry(p1,t);
+        db.addEntry(t);
     }
 
     @Test
