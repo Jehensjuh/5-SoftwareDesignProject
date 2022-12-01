@@ -18,14 +18,14 @@ public class TicketFactory {
         }
         return false;
     }
-    public Ticket getTicket(Person creator, double amountUpfront, TicketTypes type){
+    public Ticket getTicket(Person creator, double amountUpfront, TicketTypes type, String name){
         switch(type){
-            case TaxiTicket: return new EvenTicket(creator, amountUpfront, type);
-            case RestaurantTicket: return new UnevenTicket(creator,amountUpfront,type);
-            case AirplaneTicket: return new EvenTicket(creator,amountUpfront,type);
-            case ConcertTicket: return new EvenTicket(creator,amountUpfront,type);
-            case OtherTicket: return new UnevenTicket(creator,amountUpfront,type);
+            case TaxiTicket: return new EvenTicket(creator, amountUpfront, type, name);
+            case RestaurantTicket: return new UnevenTicket(creator,amountUpfront,type, name);
+            case AirplaneTicket: return new EvenTicket(creator,amountUpfront,type, name);
+            case ConcertTicket: return new EvenTicket(creator,amountUpfront,type, name);
+            case OtherTicket: return new UnevenTicket(creator,amountUpfront,type, name);
         }
-        return new UnevenTicket(creator,amountUpfront,type);
+        return new UnevenTicket(creator,amountUpfront,type, "error");
     }
 }
