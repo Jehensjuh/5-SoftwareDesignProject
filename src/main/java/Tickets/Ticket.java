@@ -52,10 +52,6 @@ public abstract class Ticket {
         this.amountUpfront = amountUpfront;
     }
 
-    public void setType(TicketTypes type) {
-        this.type = type;
-    }
-
     public List<Person> getPayers(){
         ArrayList<Person> payerPeople = new ArrayList<Person>();
         payerPeople.addAll(payers.keySet());
@@ -73,7 +69,7 @@ public abstract class Ticket {
     public void removePayer(Person person){
         payers.remove(person);
     }
-
+    //use?
     public List<Double> getAllAmounts(){
         ArrayList<Double> amounts = new ArrayList<Double>();
         for(Person i : payers.keySet()){
