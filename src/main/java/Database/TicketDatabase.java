@@ -52,4 +52,39 @@ public class TicketDatabase extends Database{
         return false;
     }
 
+    /*
+    //Een functie die al de tickets teruggeeft
+    public ArrayList<Ticket> getAllTickets()
+    {
+        ArrayList<Ticket> allTickets = new ArrayList<Ticket>();
+        for(Person p:tD.keySet())
+        {
+            for(Ticket t:tD.get(p))
+            {
+                allTickets.add(t);
+            }
+        }
+        return allTickets;
+    }
+    */
+
+    //Functie die al de tickets van de persoon geeft
+    public ArrayList<Ticket> getInvolvedTickets(Person p) {
+        ArrayList<Ticket> involvedTickets = new ArrayList<Ticket>();
+        for (Person i : tD.keySet()) {
+            for (Ticket t : tD.get(i)) {
+                if (t.getCreator() == p) {
+                    involvedTickets.add(t);
+                } else {
+                    for (Person payer : t.getPayers()) {
+                        if (payer == p) {
+                            involvedTickets.add(t);
+                        }
+                    }
+                }
+            }
+        }
+        return involvedTickets;
+    }
+
 }

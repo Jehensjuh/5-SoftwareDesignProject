@@ -1,16 +1,11 @@
 package Controller;
 
+import Database.TicketDatabase;
 import Person.Person;
 import Database.PersonDatabase;
 
 public class Controller
 {
-<<<<<<< Updated upstream
-    //Functie om de database af te drukken
-    void printPersonDatabase() {
-
-    }
-=======
     //Functie om de database te printen
     public void printPersonDatabase() {};
 
@@ -19,5 +14,4 @@ public class Controller
 
     //Functie om een person te verwijderen
     public void removePerson(Person p) {};
->>>>>>> Stashed changes
 }
