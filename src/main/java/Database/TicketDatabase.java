@@ -25,16 +25,16 @@ public class TicketDatabase extends Database{
         return instance;
     }
 
-    public void addEntry(Person creator, Ticket ticket) {
+    public void addEntry(Ticket ticket) {
         for(Person i: tD.keySet()){
-            if(i == creator){//if the person is already in the hashmap
+            if(i == ticket.getCreator()){//if the person is already in the hashmap
                 tD.get(i).add(ticket);//add the ticket to their arraylist
                 return;//we're done here
             }
         }
         ArrayList<Ticket> ticketList = new ArrayList<Ticket>();//person is not yet in the hashmap so we need to create a new arraylist
         ticketList.add(ticket);//add the ticket to the arraylist
-        tD.put(creator,ticketList);//create new entry in the hashmap for this person
+        tD.put(ticket.getCreator(),ticketList);//create new entry in the hashmap for this person
     }
 
     public ArrayList<Ticket> getTickets(Person creator){
