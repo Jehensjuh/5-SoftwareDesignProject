@@ -11,10 +11,18 @@ public class PersonDatabase extends Database
 {
     //Lijst met al de personen
     private final ArrayList<Person> dbp;
+    private static PersonDatabase instance;
 
     //Constructor
     public PersonDatabase() {
         this.dbp = new ArrayList<Person>();
+    }
+
+    public static PersonDatabase getInstance(){//singleton
+        if (instance == null){
+            instance = new PersonDatabase();
+        }
+        return instance;
     }
 
     //Functie om een persoon toe te voegen

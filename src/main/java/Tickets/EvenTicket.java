@@ -5,8 +5,8 @@ import Person.Person;
 public class EvenTicket extends Ticket {
 
 
-    public EvenTicket(Person creator, double amountUpfront, TicketTypes type) {
-        super(creator, amountUpfront, type);
+    public EvenTicket(Person creator, double amountUpfront, TicketTypes type, String name) {
+        super(creator, amountUpfront, type, name);
     }
     /**
      * method calculates the amount each person has to pay and updates their balance in the payers hashmap of this ticket.

@@ -11,13 +11,23 @@ public abstract class Ticket {
     protected double amountUpfront;
     protected TicketTypes type;
     protected HashMap<Person, Double> payers;
+    protected String ticketName; //a name given to a certain instance of a ticket eg. "Quick" for restaurant ticket.
 
-    public Ticket(Person creator, double amountUpfront, TicketTypes type){
+    public Ticket(Person creator, double amountUpfront, TicketTypes type, String name){
         this.amountUpfront= amountUpfront;
         this.creator = creator;
         this.type = type;
         this.payers = new HashMap<Person, Double>();
         this.payers.put(creator,-amountUpfront); //creator pays upfront so his balance becomes -amountUpfront
+        this.ticketName = name;
+    }
+
+    public String getTicketName() {
+        return ticketName;
+    }
+
+    public void setTicketName(String ticketName) {
+        this.ticketName = ticketName;
     }
 
     public abstract void divideBill();
@@ -42,10 +52,6 @@ public abstract class Ticket {
         this.amountUpfront = amountUpfront;
     }
 
-    public void setType(TicketTypes type) {
-        this.type = type;
-    }
-
     public List<Person> getPayers(){
         ArrayList<Person> payerPeople = new ArrayList<Person>();
         payerPeople.addAll(payers.keySet());
@@ -63,7 +69,7 @@ public abstract class Ticket {
     public void removePayer(Person person){
         payers.remove(person);
     }
-
+    //use?
     public List<Double> getAllAmounts(){
         ArrayList<Double> amounts = new ArrayList<Double>();
         for(Person i : payers.keySet()){
