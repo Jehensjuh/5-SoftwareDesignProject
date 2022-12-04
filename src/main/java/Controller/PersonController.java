@@ -38,7 +38,7 @@ public class PersonController extends Controller {
     @Override
     public void getInvolvedTickets(Person p, TicketDatabase dbt)
     {
-        dbp.getInvolvedTickets(p, dbt);
+        dbt.getInvolvedTickets(p);
     }
 
 }

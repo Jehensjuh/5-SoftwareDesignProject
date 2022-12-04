@@ -21,17 +21,19 @@ public class PersonDatabase_ITest
     public void Initialize()
     {
         dbp.addPerson(p1);
-        dbp.addPerson(p1);
         dbp.addPerson(p2);
         dbp.addPerson(p3);
         dbp.removePerson(p1);
+        dbp.removePersonName("An");
+        dbp.printDatabase();
     }
 
     @Test
     public void present()
     {
-        assertThat("Present",true == dbp.inDatabase(p1));
-        assertThat("Present",true == dbp.inDatabase(p2));
+        assertThat("Present",false == dbp.inDatabase(p1));
+        assertThat("Present",false == dbp.inDatabase(p2));
         assertThat("Present",true == dbp.inDatabase(p3));
+        assertThat("Name Present", true == dbp.nameInDatabase("Bob"));
     }
 }
