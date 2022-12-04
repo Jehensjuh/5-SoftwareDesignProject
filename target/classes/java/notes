@@ -1,16 +1,14 @@
 ##Ideas
 Bill computes final bill...
 Ticket database contains tickets and person that created them
-
-#Ticket
-tickets holds creator + indebted for that specific ticket + amounts paid
-ticket methods : split bill depending on even or uneven
+tickets holds creator + indebted
 
 #Person
 name;
 amount indebted;
 amount paid;(total over all tickets)
 get involvedtickets(ticketdatabase)
+
 
 #ticketdatabase
 zoek persoon -> tickets gemaakt door persoon

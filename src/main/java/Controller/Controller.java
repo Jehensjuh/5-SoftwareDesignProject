@@ -3,6 +3,7 @@ package Controller;
 import Database.Database;
 import Database.TicketDatabase;
 import Factory.TicketFactory;
+import Database.TicketDatabase;
 import Person.Person;
 import Database.PersonDatabase;
 import Tickets.Ticket;
@@ -14,16 +15,14 @@ public class Controller
     private PersonDatabase pdb;
     private TicketFactory f;
 
+
     public Controller(){
         this.tdb = TicketDatabase.getInstance();
         this.pdb = PersonDatabase.getInstance();
         this.f = new TicketFactory();
         this.run();
     }
-    //Functie om de database af te drukken
-//    void printPersonDatabase() {
-//
-//    }
+
     public void run(){
         //temporary untill gui is created
         //create people
@@ -46,4 +45,15 @@ public class Controller
         tdb.addEntry(evenTicket);
         tdb.addEntry(unevenTicket);
     }
+
+    //Functie om de database te printen
+    public void printPersonDatabase() {};
+
+    //Functie om een person toe te voegen
+    public void addPerson(Person p) {};
+
+    //Functie om een person te verwijderen
+    public void removePerson(Person p) {};
+
+    public void getInvolvedTickets(Person p, TicketDatabase dbt) {};
 }

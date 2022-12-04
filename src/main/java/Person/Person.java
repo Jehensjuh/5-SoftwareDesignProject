@@ -1,4 +1,7 @@
 package Person;
+import Tickets.Ticket;
+import Database.TicketDatabase;
+import Database.Database;
 
 public class Person {
     private String name;
