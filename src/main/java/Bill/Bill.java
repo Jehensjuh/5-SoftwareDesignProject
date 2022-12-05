@@ -13,8 +13,15 @@ public class Bill {
         this.pdb=pdb;
         this.tdb=tdb;
     }
-    public HashMap<Person, Double>getBill(){//calulates final bill;
-        HashMap<Person,Double>bill = new HashMap<Person, Double>();
+
+    //Berekent rekening
+    public HashMap<Person,HashMap<Person,Double>> getBill()
+    {
+        pdb.sortDatabase();
+
+        //Maakt een map aan
+        HashMap<Person,Double> persondebt = new HashMap<Person,Double>();
+        HashMap<Person,HashMap<Person,Double>> bill = new HashMap<Person,HashMap<Person,Double>>();
 
         return bill;
     }

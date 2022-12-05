@@ -5,7 +5,9 @@ import Tickets.Ticket;
 import Database.TicketDatabase;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Objects;
+import java.util.Observer;
 
 public class PersonDatabase extends Database
 {
@@ -35,6 +37,7 @@ public class PersonDatabase extends Database
     }
 
     //Functie om een persoon te verwijderen
+    //error geven als de persoon nog moet betalen?
     public void removePerson(Person p)
     {
         if(this.dbp.indexOf(p) != -1)
@@ -51,14 +54,9 @@ public class PersonDatabase extends Database
         {
             if(Objects.equals(p.getName(), s))
             {
-                if (this.dbp.indexOf(p) != -1) {
-                    this.dbp.remove(p);
-                    p.setAmountPaid(0);
-                }
-            }
-            else
-            {
-                System.out.println("Name not found!");
+                this.dbp.remove(p);
+                p.setAmountPaid(0);
+                break;
             }
         }
     }
@@ -98,5 +96,10 @@ public class PersonDatabase extends Database
             }
         }
         return false;
+    }
+
+    public void sortDatabase()
+    {
+        Collections.sort(this.dbp);
     }
 }

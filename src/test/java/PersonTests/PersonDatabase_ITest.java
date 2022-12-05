@@ -13,7 +13,9 @@ public class PersonDatabase_ITest
     PersonDatabase dbp = PersonDatabase.getInstance();
     Person p1 = new Person("Jan");
     Person p2 = new Person("An");
-    Person p3 = new Person("Bob");
+    Person p3 = new Person("Bob", 500);
+    Person p4 = new Person("Jens", 200);
+    Person p5 = new Person("Alexander", 100);
 
     public PersonDatabase_ITest() {}
 
@@ -23,8 +25,13 @@ public class PersonDatabase_ITest
         dbp.addPerson(p1);
         dbp.addPerson(p2);
         dbp.addPerson(p3);
+        dbp.addPerson(p4);
+        dbp.addPerson(p5);
         dbp.removePerson(p1);
         dbp.removePersonName("An");
+        dbp.removePersonName("Test");
+        dbp.printDatabase();
+        dbp.sortDatabase();
         dbp.printDatabase();
     }
 
