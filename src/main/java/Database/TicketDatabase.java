@@ -67,6 +67,17 @@ public class TicketDatabase extends Database{
         return returnTicket;
     }
 
+    public double getAmountOfTickets(){//returns the amount of tickets that are in the database
+        double ticketCounter = 0;
+        if(!tD.isEmpty()){//if the database is not empty
+            for(Person i:tD.keySet()){
+                ticketCounter += tD.get(i).size();//add the amount of tickets in the ticketlist to ticketcounter
+            }
+        }
+        //if the database is empty we will return 0
+        return ticketCounter;
+    }
+
     public boolean isCreator(Person creator){
         for(Person i:tD.keySet()){
             if(i == creator){
