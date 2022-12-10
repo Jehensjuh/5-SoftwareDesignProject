@@ -1,22 +1,20 @@
-package ObserverTests;
+package BillTests;
 
 import Database.PersonDatabase;
 import Database.TicketDatabase;
 import Factory.TicketFactory;
 import Observers.ObserverTicket;
-import Tickets.Ticket;
-import Tickets.EvenTicket;
-import Tickets.UnevenTicket;
-import Tickets.TicketTypes;
 import Person.Person;
+import Tickets.Ticket;
 import org.junit.Before;
 import org.junit.Test;
+import Bill.Bill;
 
 import static Tickets.TicketTypes.RestaurantTicket;
 import static Tickets.TicketTypes.TaxiTicket;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class PersonObserver_UTest {
+public class Bill_UTest {
     PersonDatabase dbp = PersonDatabase.getInstance();
     TicketDatabase dbt = TicketDatabase.getInstance();
     Person p1 = new Person("Jan");
@@ -27,7 +25,9 @@ public class PersonObserver_UTest {
     Ticket t2 = f.getTicket(p2, 300, RestaurantTicket, "Restaurant");
     ObserverTicket observerTicket = new ObserverTicket();
 
-    public PersonObserver_UTest() {}
+    Bill finalBill = new Bill(dbp,dbt);
+
+    public Bill_UTest() {}
 
     @Before
     public void Initialize()
@@ -54,5 +54,6 @@ public class PersonObserver_UTest {
         assertThat("Correct amountPaid",30 == p1.getAmountPaid());
         assertThat("Correct amountPaid",210 == p2.getAmountPaid());
         assertThat("Correct amountPaid",-240 == p3.getAmountPaid());
+        System.out.println(finalBill.getBill());
     }
 }

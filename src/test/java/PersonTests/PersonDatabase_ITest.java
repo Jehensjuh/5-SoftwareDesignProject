@@ -14,7 +14,7 @@ public class PersonDatabase_ITest
     Person p1 = new Person("Jan");
     Person p2 = new Person("An");
     Person p3 = new Person("Bob", 500);
-    Person p4 = new Person("Jens", 200);
+    Person p4 = new Person("Jens", -200);
     Person p5 = new Person("Alexander", 100);
 
     public PersonDatabase_ITest() {}

@@ -102,4 +102,8 @@ public class PersonDatabase extends Database
     {
         Collections.sort(this.dbp);
     }
+
+    public ArrayList<Person> getDbp() {
+        return dbp;
+    }
 }
