@@ -24,17 +24,21 @@ public class InitPanel extends JPanel implements ActionListener {
     Button addCreator;
     Button addAmountUpFront;
     Button submit;
-
-    ArrayList<Checkbox> checkboxes;
-    ArrayList<TextField> textFields;
+    HashMap<JCheckBox,TextField> list;
 
 
     JComboBox ticketOptions;
     public InitPanel(TicketFrame frame){
 
+        //panel init
+        this.setLayout(new BorderLayout());
+        //data init
         this.frame = frame;
         this.payers = new HashMap<Person, Double>();
-        this.ticketName = "Ticket"+(frame.tDatabase.getAmountOfTickets()+1);//name of the ticket will be "ticket"+new amount of ticket. So second ticket will be called "ticket2"
+        if(!this.frame.tDatabase.getDatabase().isEmpty()){
+            this.ticketName = "Ticket"+(frame.tDatabase.getAmountOfTickets()+1);//name of the ticket will be "ticket"+new amount of ticket. So second ticket will be called "ticket2"
+        }
+        this.list = new HashMap<JCheckBox,TextField>();
         //dropdown menu ticket types
         TicketTypes[] ticketTypes = {TicketTypes.AirplaneTicket, TicketTypes.RestaurantTicket, TicketTypes.TaxiTicket, TicketTypes.ConcertTicket,TicketTypes.OtherTicket};
         this.ticketOptions = new JComboBox(ticketTypes);
@@ -55,14 +59,37 @@ public class InitPanel extends JPanel implements ActionListener {
         this.submit.addActionListener(this);
 
         //add components to panel
-        this.add(ticketOptions);
-        this.add(addCreator);
-        this.add(addAmountUpFront);
-        this.add(submit);
+        this.createPanels();
     }
 
-    private void createPayersList(){
-        for(Person i:this.frame.pDatabase)
+    private void createPanels(){
+        JPanel northPanel = new JPanel();
+        JPanel southPanel = new JPanel();
+        JPanel centerPanel = new JPanel();
+        northPanel.add(ticketOptions);
+        northPanel.add(addCreator);
+        northPanel.add(addAmountUpFront);
+        southPanel.add(submit);
+        this.createPayersList(centerPanel);
+        this.add(northPanel,BorderLayout.NORTH);
+        this.add(southPanel,BorderLayout.SOUTH);
+    }
+
+    private void createPayersList(JPanel panel){
+        if(!this.frame.pDatabase.getPeople().isEmpty()){//if the database is empty we shouldn't run this
+            JPanel listPanel = new JPanel();
+            for(Person i:this.frame.pDatabase.getPeople()){
+                this.list.put(new JCheckBox(i.getName()),new TextField("Enter amount paid"));
+            }
+            double amountOfElements = this.list.size();
+            listPanel.setLayout(new GridLayout((int)amountOfElements,2));
+            for(JCheckBox j:this.list.keySet()){
+                listPanel.add(j);//add checkbox
+                listPanel.add(list.get(j));//add textfield
+            }
+            panel.add(listPanel);
+            this.add(panel,BorderLayout.CENTER);
+        }
     }
     @Override
     public void actionPerformed(ActionEvent e) {

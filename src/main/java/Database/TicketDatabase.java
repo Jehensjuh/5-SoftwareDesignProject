@@ -52,6 +52,10 @@ public class TicketDatabase extends Database{
         return new ArrayList<Ticket>(); //if the person is not in the hashmap return empty list (should be exception catch)
     }
 
+    public HashMap<Person, ArrayList<Ticket>> getDatabase() {
+        return tD;
+    }
+
     public ArrayList<Person> getCreators(){
         ArrayList<Person> personlist = new ArrayList<Person>();
         personlist.addAll(tD.keySet());

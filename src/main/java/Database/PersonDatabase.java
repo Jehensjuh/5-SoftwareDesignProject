@@ -36,6 +36,10 @@ public class PersonDatabase extends Database
         }
     }
 
+    public ArrayList<Person> getPeople() {
+        return dbp;
+    }
+
     //Functie om een persoon te verwijderen
     //error geven als de persoon nog moet betalen?
     public void removePerson(Person p)

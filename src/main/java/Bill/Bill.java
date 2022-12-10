@@ -15,7 +15,7 @@ public class Bill {
     }
 
     //Berekent rekening
-    public HashMap<Person,HashMap<Person,Double>> getBill()
+    public static HashMap<Person,HashMap<Person,Double>> getBill(PersonDatabase pdb, TicketDatabase tdb)
     {
         pdb.sortDatabase();
 

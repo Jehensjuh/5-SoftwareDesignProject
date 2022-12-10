@@ -1,5 +1,8 @@
 package GUI.OpeningFrame;
 
+import Database.PersonDatabase;
+import Database.TicketDatabase;
+import GUI.Bill.BillFrame;
 import GUI.CreateTicket.TicketFrame;
 
 import javax.swing.*;
@@ -10,10 +13,15 @@ import java.awt.event.ActionListener;
 public class CreateTicketPanel extends JPanel implements ActionListener {
     Button addTicket;
     Button calculateBill;
-    public CreateTicketPanel(){
+    TicketDatabase ticketDatabase;
+    PersonDatabase personDatabase;
+    public CreateTicketPanel(PersonDatabase personDatabase, TicketDatabase ticketDatabase){
+        this.personDatabase=personDatabase;
+        this.ticketDatabase=ticketDatabase;
+
         this.setBounds(250,0,250,720/2);
         this.setBackground(Color.BLACK);
-        this.setLayout(new BorderLayout(0,0));
+        this.setLayout(new GridLayout(2,1));
         this.calculateBill = new Button("calculate Bill");
         this.calculateBill.setPreferredSize(new Dimension(100,50));
         this.calculateBill.addActionListener(this);
@@ -21,16 +29,18 @@ public class CreateTicketPanel extends JPanel implements ActionListener {
         this.addTicket.setPreferredSize(new Dimension(100,50));
         this.addTicket.addActionListener(this);
         this.add(addTicket);
+        this.add(calculateBill);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==addTicket){
             //open create ticket frame
-            TicketFrame ticketFrame = new TicketFrame();
+            TicketFrame ticketFrame = new TicketFrame(personDatabase,ticketDatabase);
         }
         else if(e.getSource()==calculateBill){
             //open window with calculated bill
+            BillFrame billFrame = new BillFrame(personDatabase, ticketDatabase);
         }
     }
 }
