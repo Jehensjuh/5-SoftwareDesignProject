@@ -1,27 +1,44 @@
 package Controller;
 
-import Database.Database;
 import Person.Person;
+import Database.Database;
+import Database.TicketDatabase;
 import Database.PersonDatabase;
+import Tickets.Ticket;
 
-public class PersonController{
+public class PersonController extends Controller {
 
     private PersonDatabase dbp;
 
-    public PersonController(PersonDatabase dpb) {this.dbp = dbp;}
+    private TicketDatabase dbt;
+
+    public PersonController(PersonDatabase dbp, TicketDatabase dbt) {
+        this.dbp = dbp;
+        this.dbt = dbt;
+    }
 
     public PersonController() {}
 
-
+    @Override
     public void printPersonDatabase() {
-
+        this.dbp.printDatabase();
     }
 
+    @Override
+    public void addPerson(Person p) {
+        dbp.addPerson(p);
+    }
 
-//    public void printPersonDatabase() {
-//        for (Person person : dbp)
-//        {
-//            System.out.println(person.getName() + person.getAmountPaid());
-//        }
-//    }
+    @Override
+    public void removePerson(Person p) {
+        dbp.removePerson(p);
+    }
+
+    //Functie die al de tickets van de persoon geeft
+    @Override
+    public void getInvolvedTickets(Person p, TicketDatabase dbt)
+    {
+        dbt.getInvolvedTickets(p);
+    }
+
 }

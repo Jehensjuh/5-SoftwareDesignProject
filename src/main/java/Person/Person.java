@@ -1,11 +1,19 @@
 package Person;
+import Tickets.Ticket;
+import Database.TicketDatabase;
+import Database.Database;
 
-public class Person {
+public class Person implements Comparable<Person>
+{
     private String name;
     private double amountPaid;
     public Person(String name) {
         this.name = name;
         this.amountPaid = 0.0;
+    }
+    public Person(String name, double amountPaid) {
+        this.name = name;
+        this.amountPaid = amountPaid;
     }
     public String getName() {
         return name;
@@ -18,5 +26,11 @@ public class Person {
     }
     public void setAmountPaid(double amountPaid) {
         this.amountPaid = amountPaid;
+    }
+
+    //Methode om personen te vergelijken adhv amountPaid
+    @Override
+    public int compareTo(Person p) {
+        return (int)(this.getAmountPaid() - p.getAmountPaid());
     }
 }

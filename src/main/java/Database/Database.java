@@ -3,12 +3,10 @@ package Database;
 import Person.Person;
 import Tickets.Ticket;
 
+import java.util.Observable;
+import java.util.Observer;
 
-
-public abstract class Database {
-
-    //public abstract void add(Observer o);
-    //public abstract void remove(Observer o);
-    //public abstract void notify_observer();
-
+public abstract class Database extends Observable
+{
+    public Database() {};
 }
