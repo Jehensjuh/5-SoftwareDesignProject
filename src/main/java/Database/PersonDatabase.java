@@ -42,8 +42,19 @@ public class PersonDatabase extends Database
     {
         if(this.dbp.indexOf(p) != -1)
         {
-            this.dbp.remove(p);
-            p.setAmountPaid(0);
+            if(p.getAmountPaid() != 0)
+            {
+                this.dbp.remove(p);
+                p.setAmountPaid(0);
+            }
+            else
+            {
+                System.out.println("Person still has to pay");
+            }
+        }
+        else
+        {
+            System.out.println("Person not in database");
         }
     }
 
@@ -54,11 +65,20 @@ public class PersonDatabase extends Database
         {
             if(Objects.equals(p.getName(), s))
             {
-                this.dbp.remove(p);
-                p.setAmountPaid(0);
-                break;
+                if(p.getAmountPaid() != 0)
+                {
+                    this.dbp.remove(p);
+                    p.setAmountPaid(0);
+                    break;
+                }
+                else
+                {
+                    System.out.println("Person still has to pay");
+                    break;
+                }
             }
         }
+        System.out.println("Person not in database");
     }
 
     //Functie om de lijst te printen
@@ -105,5 +125,15 @@ public class PersonDatabase extends Database
 
     public ArrayList<Person> getDbp() {
         return dbp;
+    }
+
+    public ArrayList<Person> getDbpReversed()
+    {
+        ArrayList<Person> reversed = new ArrayList<Person>();
+        for(int i=dbp.size()-1;i>=0;i--)
+        {
+            reversed.add(dbp.get(i));
+        }
+        return reversed;
     }
 }

@@ -23,9 +23,10 @@ public class Bill {
         HashMap<Person,HashMap<Person,Double>> bill = new HashMap<Person,HashMap<Person,Double>>();
         //Sorteer de database en laat iedereen betalen
         pdb.sortDatabase();
-        ArrayList<Person> plist = pdb.getDbp();
-        ArrayList<Person> rplist = pdb.getDbp();
-        Collections.reverse(rplist);
+        ArrayList<Person> plist = new ArrayList<Person>();
+        ArrayList<Person> rplist = new ArrayList<Person>();
+        plist = pdb.getDbp();
+        rplist = pdb.getDbpReversed();
         for(Person p:plist)
         {
             HashMap<Person,Double> persondebt = new HashMap<Person,Double>();
@@ -50,7 +51,7 @@ public class Bill {
                         //zet in een map dat p aan p2 betaalt
                         persondebt.put(p2,p2.getAmountPaid());
                         //p betaalt een deel van zijn schulden aan p2
-                        p.setAmountPaid(p.getAmountPaid()+ p2.getAmountPaid());
+                        p.setAmountPaid(p.getAmountPaid()+p2.getAmountPaid());
                         p2.setAmountPaid(0.0);
                     }
                 }
