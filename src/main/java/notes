@@ -35,3 +35,10 @@ binds everything together
 
 
 ticket gemaakt -> ticket even of oneven split bill -> controller geeft resultaat door aan persoon -> bill maakt eindrekening
+
+#Bill
+1. Rangschikt alle personen volgend amountPaid
+2. Laat de laagste persoon betalen aan de eerste persoon tot een van de twee op 0 staat
+    2.1 Als de laatste persoon op 0 staat, herhaal het proces met de voorlaatste enz
+    2.2 Als de eerste persoon op 0 staat, laat de betalende persoon betalen aan de volgende enz
+3. Herhaal dit tot iedereen op 0 staat

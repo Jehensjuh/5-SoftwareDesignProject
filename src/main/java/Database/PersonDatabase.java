@@ -5,7 +5,9 @@ import Tickets.Ticket;
 import Database.TicketDatabase;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Objects;
+import java.util.Observer;
 
 public class PersonDatabase extends Database
 {
@@ -35,12 +37,24 @@ public class PersonDatabase extends Database
     }
 
     //Functie om een persoon te verwijderen
+    //error geven als de persoon nog moet betalen?
     public void removePerson(Person p)
     {
         if(this.dbp.indexOf(p) != -1)
         {
-            this.dbp.remove(p);
-            p.setAmountPaid(0);
+            if(p.getAmountPaid() != 0)
+            {
+                this.dbp.remove(p);
+                p.setAmountPaid(0);
+            }
+            else
+            {
+                System.out.println("Person still has to pay");
+            }
+        }
+        else
+        {
+            System.out.println("Person not in database");
         }
     }
 
@@ -51,16 +65,20 @@ public class PersonDatabase extends Database
         {
             if(Objects.equals(p.getName(), s))
             {
-                if (this.dbp.indexOf(p) != -1) {
+                if(p.getAmountPaid() != 0)
+                {
                     this.dbp.remove(p);
                     p.setAmountPaid(0);
+                    break;
+                }
+                else
+                {
+                    System.out.println("Person still has to pay");
+                    break;
                 }
             }
-            else
-            {
-                System.out.println("Name not found!");
-            }
         }
+        System.out.println("Person not in database");
     }
 
     //Functie om de lijst te printen
@@ -98,5 +116,24 @@ public class PersonDatabase extends Database
             }
         }
         return false;
+    }
+
+    public void sortDatabase()
+    {
+        Collections.sort(this.dbp);
+    }
+
+    public ArrayList<Person> getDbp() {
+        return dbp;
+    }
+
+    public ArrayList<Person> getDbpReversed()
+    {
+        ArrayList<Person> reversed = new ArrayList<Person>();
+        for(int i=dbp.size()-1;i>=0;i--)
+        {
+            reversed.add(dbp.get(i));
+        }
+        return reversed;
     }
 }

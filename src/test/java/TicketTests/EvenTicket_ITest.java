@@ -23,15 +23,16 @@ public class EvenTicket_ITest {
     public void Initialize(){
         TicketFactory f = new TicketFactory();
         Ticket t = f.getTicket(p1,90, TicketTypes.AirplaneTicket,"air");
-        t.addPayer(p2,0);
-        t.addPayer(p3,0);
+        t.addPayer(p1);
+        t.addPayer(p2);
+        t.addPayer(p3);
         db.addEntry(t);
     }
 
     @Test
     public void t_DivideBill(){
         db.getTicket("Jan","air").divideBill();
-        assertThat("testing amount debt",-90 == db.getTicket("Jan","air").getAmount(p1));
+        assertThat("testing amount debt",60 == db.getTicket("Jan","air").getAmount(p1));
         assertThat("testing amount debt",-30 == db.getTicket("Jan","air").getAmount(p2));
         assertThat("testing amount debt",-30 == db.getTicket("Jan","air").getAmount(p3));
     }

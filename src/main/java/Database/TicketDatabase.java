@@ -8,6 +8,8 @@ import Tickets.TicketTypes;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Observer;
+
 //Database containing all created Tickets and the Person who created them.
 public class TicketDatabase extends Database{
 
@@ -35,6 +37,10 @@ public class TicketDatabase extends Database{
         ArrayList<Ticket> ticketList = new ArrayList<Ticket>();//person is not yet in the hashmap so we need to create a new arraylist
         ticketList.add(ticket);//add the ticket to the arraylist
         tD.put(ticket.getCreator(),ticketList);//create new entry in the hashmap for this person
+        //Geef het ticket door om persoon up te daten
+        Object objectTicket = ticket;
+        setChanged();
+        notifyObservers(objectTicket);
     }
 
     public ArrayList<Ticket> getTickets(Person creator){
