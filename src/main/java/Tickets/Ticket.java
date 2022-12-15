@@ -18,7 +18,6 @@ public abstract class Ticket {
         this.creator = creator;
         this.type = type;
         this.payers = new HashMap<Person, Double>();
-        this.payers.put(creator,-amountUpfront); //creator pays upfront so his balance becomes -amountUpfront
         this.ticketName = name;
     }
 

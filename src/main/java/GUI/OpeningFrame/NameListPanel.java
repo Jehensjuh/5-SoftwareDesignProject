@@ -1,5 +1,7 @@
 package GUI.OpeningFrame;
 
+import Database.PersonDatabase;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,10 +12,11 @@ public class NameListPanel extends JPanel implements ActionListener {
     Button removeButton;
     JPanel namePanel;
     JPanel removePanel;
+    PersonDatabase pdb;
     private DefaultListModel<String> nameList;
     private JList<String> names;
-    public NameListPanel(){
-
+    public NameListPanel(PersonDatabase pdb){
+        this.pdb = pdb
         this.setBounds(0,0,250,720/2);
         this.setLayout(new BorderLayout(10,0));
 
@@ -58,7 +61,9 @@ public class NameListPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==addName){
-            this.nameList.addElement(JOptionPane.showInputDialog("Input name: "));
+            String name = JOptionPane.showInputDialog("Input name: ");
+            this.pdb.addPerson(new Person(name));
+            this.nameList.addElement(name);
         }
         else if(e.getSource()==removeButton){
             this.nameList.removeElement(JOptionPane.showInputDialog("What name to remove?: "));

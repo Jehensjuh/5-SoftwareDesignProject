@@ -27,13 +27,23 @@ public class UnevenTicket extends Ticket{
             else{
                 if(i != this.creator){ //creator has paid upfront so value does not have to change
                     tempValue -= this.getAmount(i); //total amount of debt decreases because a bit was already paid back
-                    payers.put(i, this.getAmount(i) * -1); //person has paid this amount so their value becomes a negative one now (used for further computations)
+                    payers.put(i, -this.getAmount(i)); //person has paid this amount so their value becomes a negative one now (used for further computations)
+                }
+                else{
+                    tempValue -= this.getAmount(i);
+                    payers.put(i,amountUpfront-this.getAmount(i));
                 }
             }
         }
         amountDue = tempValue/indebted.size(); //remainder of debt get's evenly devided over all remaining persons
         for(Person i:indebted){
-            payers.put(i,this.getAmount(i) - amountDue); //these people have paid 0, so 0 - amountDue leaves a negative balance
+            if(i != this.creator){
+                payers.put(i,this.getAmount(i) - amountDue); //these people have paid 0, so 0 - amountDue leaves a negative balance
+            }
+            else{
+                payers.put(i,amountUpfront-amountDue);
+            }
+
         }
     }
 }

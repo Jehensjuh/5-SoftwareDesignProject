@@ -1,5 +1,6 @@
 package GUI.CreateTicket;
 
+import Factory.TicketFactory;
 import Person.Person;
 import Tickets.TicketTypes;
 
@@ -25,6 +26,7 @@ public class InitPanel extends JPanel implements ActionListener {
     Button addAmountUpFront;
     Button submit;
     HashMap<JCheckBox,TextField> list;
+
 
 
     JComboBox ticketOptions;
@@ -76,9 +78,9 @@ public class InitPanel extends JPanel implements ActionListener {
     }
 
     private void createPayersList(JPanel panel){
-        if(!this.frame.pDatabase.getPeople().isEmpty()){//if the database is empty we shouldn't run this
+        if(!this.frame.pDatabase.getDbp().isEmpty()){//if the database is empty we shouldn't run this
             JPanel listPanel = new JPanel();
-            for(Person i:this.frame.pDatabase.getPeople()){
+            for(Person i:this.frame.pDatabase.getDbp()){
                 this.list.put(new JCheckBox(i.getName()),new TextField("Enter amount paid"));
             }
             double amountOfElements = this.list.size();

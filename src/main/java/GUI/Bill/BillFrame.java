@@ -50,8 +50,8 @@ public class BillFrame extends JFrame implements ActionListener {
         billPanel.setLayout(new GridLayout(bill.size(),3));
         if(!bill.isEmpty()){
             for(Person i:bill.keySet()){
-                labelList.add(new JLabel(i.getName()));
                 for(Person j :bill.get(i).keySet()){
+                    labelList.add(new JLabel(i.getName()));
                     labelList.add(new JLabel(j.getName()));
                     labelList.add(new JLabel(bill.get(i).get(j)+" euro's"));
                 }
