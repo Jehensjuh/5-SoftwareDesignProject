@@ -16,7 +16,7 @@ public class NameListPanel extends JPanel implements ActionListener {
     private DefaultListModel<String> nameList;
     private JList<String> names;
     public NameListPanel(PersonDatabase pdb){
-        this.pdb = pdb
+        this.pdb = pdb;
         this.setBounds(0,0,250,720/2);
         this.setLayout(new BorderLayout(10,0));
 
@@ -62,7 +62,6 @@ public class NameListPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==addName){
             String name = JOptionPane.showInputDialog("Input name: ");
-            this.pdb.addPerson(new Person(name));
             this.nameList.addElement(name);
         }
         else if(e.getSource()==removeButton){
