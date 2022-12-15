@@ -38,11 +38,11 @@ public class BillFrame extends JFrame implements ActionListener {
         ArrayList<JLabel> labelList = new ArrayList<JLabel>();
         JPanel billPanel = new JPanel();
         JPanel titlePanel = new JPanel();
-        JLabel indebted = new JLabel("name indebted");
+        JLabel indebted = new JLabel("indebted");
         indebted.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        JLabel creditor = new JLabel("name creditor");
+        JLabel creditor = new JLabel("creditor");
         creditor.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        JLabel due = new JLabel("Amount due");
+        JLabel due = new JLabel("Amount");
         due.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         titlePanel.add(indebted);
         titlePanel.add(creditor);
