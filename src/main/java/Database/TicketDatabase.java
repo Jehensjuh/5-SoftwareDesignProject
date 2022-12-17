@@ -5,10 +5,8 @@ import Tickets.EvenTicket;
 import Tickets.Ticket;
 import Tickets.TicketTypes;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Observer;
 
 //Database containing all created Tickets and the Person who created them.
 public class TicketDatabase extends Database{
@@ -63,7 +61,7 @@ public class TicketDatabase extends Database{
     }
 
     public Ticket getTicket(String personName, String ticketName){
-        Ticket returnTicket = new EvenTicket(new Person(personName),0, TicketTypes.OtherTicket,"error");
+        Ticket returnTicket = new EvenTicket(new Person(personName),0, TicketTypes.ChooseTicket,"error");
         for(Person i:tD.keySet()){
             if(i.getName() == personName){
                 ArrayList<Ticket> ticketList = tD.get(i);

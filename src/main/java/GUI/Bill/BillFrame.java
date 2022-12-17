@@ -34,26 +34,36 @@ public class BillFrame extends JFrame implements ActionListener {
     }
 
     private void createBillPanel(){
-        HashMap<Person, HashMap<Person,Double>> bill = Bill.getBill(personDatabase,ticketDatabase);
-        ArrayList<JLabel> labelList = new ArrayList<JLabel>();
-        JPanel billPanel = new JPanel();
-        JPanel titlePanel = new JPanel();
+        System.out.println("person database: "+personDatabase.getDbp()+" ticket database: "+ticketDatabase.getDatabase());
+        HashMap<Person, HashMap<Person,Double>> bill = Bill.getBill(personDatabase,ticketDatabase);//get bill
+        System.out.println("bill: "+bill+" inside hasmap bill: "+bill.values());
+
+        ArrayList<JLabel> labelList = new ArrayList<JLabel>();//make list for all labels (we don't know how many labels we'll have in advance
+
+        JPanel billPanel = new JPanel();//panel to show bill
+        JPanel titlePanel = new JPanel();//panel to show the titles specifying the categories in bill
+
         JLabel indebted = new JLabel("indebted");
         indebted.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
         JLabel creditor = new JLabel("creditor");
         creditor.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
         JLabel due = new JLabel("Amount");
         due.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
         titlePanel.add(indebted);
         titlePanel.add(creditor);
         titlePanel.add(due);
+
         billPanel.setLayout(new GridLayout(bill.size(),3));
+
         if(!bill.isEmpty()){
             for(Person i:bill.keySet()){
                 for(Person j :bill.get(i).keySet()){
-                    labelList.add(new JLabel(i.getName()));
-                    labelList.add(new JLabel(j.getName()));
-                    labelList.add(new JLabel(bill.get(i).get(j)+" euro's"));
+                    labelList.add(new JLabel(i.getName()));//name of the indebted
+                    labelList.add(new JLabel(j.getName()));//name of the creditor
+                    labelList.add(new JLabel(bill.get(i).get(j)+" euro's"));//amount due
                 }
             }
             for(JLabel l:labelList){
@@ -67,7 +77,7 @@ public class BillFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==shutdown){
-            System.exit(0);
+            System.exit(0);//close program (bill has been calculated so we have no more use for it
         }
     }
 }

@@ -38,15 +38,15 @@ public class NameListPanel extends JPanel implements ActionListener {
 
         JPanel buttonPanel = new JPanel();//panel to show add name button
         buttonPanel.setBounds(5,5,240,50);
-        buttonPanel.setBackground(Color.BLUE);//debug
+        buttonPanel.setBackground(Color.DARK_GRAY);//debug
         buttonPanel.add(addName);
 
         namePanel = new JPanel();//panel to show list of names
         namePanel.setBounds(5,300,240,300);
-        namePanel.setBackground(Color.RED);//debug
+        namePanel.setBackground(Color.GRAY);//debug
 
         removePanel = new JPanel();//panel to show remove name button
-        removePanel.setBackground(Color.GREEN);
+        removePanel.setBackground(Color.LIGHT_GRAY);
 
         //add panels to main panel
         this.add(buttonPanel,BorderLayout.NORTH);//north of the panel
@@ -63,13 +63,13 @@ public class NameListPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==addName){
             String name = JOptionPane.showInputDialog("Input name: ");
-            pdb.addPerson(new Person(name));
-            this.nameList.addElement(name);
+            pdb.addPerson(new Person(name));//add person to the database
+            this.nameList.addElement(name);//displays person in the list
         }
         else if(e.getSource()==removeButton){
             String name = JOptionPane.showInputDialog("What name to remove?: ");
-            pdb.removePersonName(name);
-            this.nameList.removeElement(name);
+            pdb.removePersonName(name);//removes person from the database
+            this.nameList.removeElement(name);//removes person from the displayed list
         }
     }
 }
