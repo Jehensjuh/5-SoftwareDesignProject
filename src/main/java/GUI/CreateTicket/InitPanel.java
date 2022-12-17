@@ -10,6 +10,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
+
+import static java.lang.Double.valueOf;
 
 public class InitPanel extends JPanel implements ActionListener {
     //databases moet meegegeven worden bij init;
@@ -106,7 +109,29 @@ public class InitPanel extends JPanel implements ActionListener {
         }
         else if(e.getSource()==submit){
             //create ticket
+            //first update the values from payers
+            for(JCheckBox c:list.keySet()){
+                for(Person p:this.payers.keySet()){
+                    if(Objects.equals(c.getText(), p.getName())){//person is checked
+                        payers.put(p, valueOf(this.list.get(c).getText()));
+                    }
+                }
+                frame.tDatabase.addEntry(frame.f.getTicket(creator,amountUpFront,type,ticketName));
+            }
             frame.dispose();//ticket frame will close once ticket is submitted
+        }
+        for(JCheckBox c : list.keySet()){
+            if(e.getSource()==c){
+                for(Person p:payers.keySet()){
+                    if(Objects.equals(p.getName(), c.getText())){
+                        payers.remove(p);
+                    }
+                    else{
+                        this.payers.put(frame.pDatabase.getPerson(c.getText()),0.0);
+                    }
+                }
+
+            }
         }
 
     }

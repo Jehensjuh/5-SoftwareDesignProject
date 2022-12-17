@@ -61,7 +61,7 @@ public class BillFrame extends JFrame implements ActionListener {
             }
         }
         this.add(titlePanel,BorderLayout.NORTH);
-        this.add(billPanel);
+        this.add(billPanel,BorderLayout.CENTER);
     }
 
     @Override

@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import Person.Person;
 
 public class NameListPanel extends JPanel implements ActionListener {
     Button addName;
@@ -62,10 +63,13 @@ public class NameListPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==addName){
             String name = JOptionPane.showInputDialog("Input name: ");
+            pdb.addPerson(new Person(name));
             this.nameList.addElement(name);
         }
         else if(e.getSource()==removeButton){
-            this.nameList.removeElement(JOptionPane.showInputDialog("What name to remove?: "));
+            String name = JOptionPane.showInputDialog("What name to remove?: ");
+            pdb.removePersonName(name);
+            this.nameList.removeElement(name);
         }
     }
 }

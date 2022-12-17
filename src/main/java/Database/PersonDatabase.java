@@ -73,6 +73,8 @@ public class PersonDatabase extends Database
                 }
                 else
                 {
+                    this.dbp.remove(p);
+                    p.setAmountPaid(0);
                     System.out.println("Person still has to pay");
                     break;
                 }
@@ -103,6 +105,15 @@ public class PersonDatabase extends Database
         {
             return false;
         }
+    }
+
+    public Person getPerson(String name){
+        for(Person p:this.dbp){
+            if(Objects.equals(p.getName(), name)){
+                return p;
+            }
+        }
+        return new Person("error");
     }
 
     //Functie om te zien of een persoon in de database zit op naam
