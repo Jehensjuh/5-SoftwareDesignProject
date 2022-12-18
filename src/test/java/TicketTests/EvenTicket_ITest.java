@@ -1,7 +1,10 @@
 package TicketTests;
 
+import Controller.Controller;
+import Controller.DatabaseController;
 import Database.Database;
 import Database.TicketDatabase;
+import Database.PersonDatabase;
 import Factory.TicketFactory;
 import Person.Person;
 import Tickets.Ticket;
@@ -12,10 +15,15 @@ import org.junit.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class EvenTicket_ITest {
-    TicketDatabase db = TicketDatabase.getInstance();
+
+    PersonDatabase pdb = PersonDatabase.getInstance();
+    TicketDatabase tdb = TicketDatabase.getInstance();
     Person p1 = new Person("Jan");
     Person p2 = new Person("An");
     Person p3 = new Person("Bob");
+    Controller controller = new DatabaseController(pdb, tdb);
+
+
     public EvenTicket_ITest(){
 
     }
@@ -26,14 +34,14 @@ public class EvenTicket_ITest {
         t.addPayer(p1);
         t.addPayer(p2);
         t.addPayer(p3);
-        db.addEntry(t);
+        controller.addEntry(t);
     }
 
     @Test
     public void t_DivideBill(){
-        db.getTicket("Jan","air").divideBill();
-        assertThat("testing amount debt",60 == db.getTicket("Jan","air").getAmount(p1));
-        assertThat("testing amount debt",-30 == db.getTicket("Jan","air").getAmount(p2));
-        assertThat("testing amount debt",-30 == db.getTicket("Jan","air").getAmount(p3));
+        controller.getTicket("Jan","air").divideBill();
+        assertThat("testing amount debt",60 == controller.getTicket("Jan","air").getAmount(p1));
+        assertThat("testing amount debt",-30 == controller.getTicket("Jan","air").getAmount(p2));
+        assertThat("testing amount debt",-30 == controller.getTicket("Jan","air").getAmount(p3));
     }
 }

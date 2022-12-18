@@ -1,13 +1,10 @@
 package Database;
 
 import Person.Person;
-import Tickets.Ticket;
-import Database.TicketDatabase;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
-import java.util.Observer;
 
 public class PersonDatabase extends Database
 {
@@ -30,27 +27,27 @@ public class PersonDatabase extends Database
     //Functie om een persoon toe te voegen
     public void addPerson(Person p)
     {
-        if(this.dbp.indexOf(p) == -1)
+        if(!this.dbp.contains(p))
         {
             this.dbp.add(p);
+        }
+        else
+        {
+            System.out.println("Person already in database");
         }
     }
 
     //Functie om een persoon te verwijderen
-    //error geven als de persoon nog moet betalen?
+    //error geven als de persoon nog moet betalen
     public void removePerson(Person p)
     {
-        if(this.dbp.indexOf(p) != -1)
+        if(this.dbp.contains(p))
         {
             if(p.getAmountPaid() != 0)
             {
-                this.dbp.remove(p);
-                p.setAmountPaid(0);
-            }
-            else
-            {
                 System.out.println("Person still has to pay");
             }
+            this.dbp.remove(p);
         }
         else
         {
@@ -65,20 +62,10 @@ public class PersonDatabase extends Database
         {
             if(Objects.equals(p.getName(), s))
             {
-                if(p.getAmountPaid() != 0)
-                {
-                    this.dbp.remove(p);
-                    p.setAmountPaid(0);
-                    break;
-                }
-                else
-                {
-                    System.out.println("Person still has to pay");
-                    break;
-                }
+                this.removePerson(p);
+                break;
             }
         }
-        System.out.println("Person not in database");
     }
 
     //Functie om de lijst te printen
@@ -95,14 +82,7 @@ public class PersonDatabase extends Database
     //Functie om te zien of een persoon in de database zit
     public boolean inDatabase(Person p)
     {
-        if(this.dbp.indexOf(p) != -1)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return this.dbp.contains(p);
     }
 
     //Functie om te zien of een persoon in de database zit op naam

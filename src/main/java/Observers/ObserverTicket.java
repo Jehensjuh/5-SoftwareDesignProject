@@ -1,10 +1,7 @@
 package Observers;
 
-import Database.Database;
-import Database.TicketDatabase;
-import Database.PersonDatabase;
-import Tickets.Ticket;
 import Person.Person;
+import Tickets.Ticket;
 
 import java.util.Observable;
 import java.util.Observer;

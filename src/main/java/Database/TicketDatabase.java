@@ -5,10 +5,9 @@ import Tickets.EvenTicket;
 import Tickets.Ticket;
 import Tickets.TicketTypes;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Observer;
+import java.util.Objects;
 
 //Database containing all created Tickets and the Person who created them.
 public class TicketDatabase extends Database{
@@ -28,6 +27,7 @@ public class TicketDatabase extends Database{
     }
 
     public void addEntry(Ticket ticket) {
+        ticket.divideBill(); //doet automitisch de berekening
         for(Person i: tD.keySet()){
             if(i == ticket.getCreator()){//if the person is already in the hashmap
                 tD.get(i).add(ticket);//add the ticket to their arraylist
@@ -38,9 +38,8 @@ public class TicketDatabase extends Database{
         ticketList.add(ticket);//add the ticket to the arraylist
         tD.put(ticket.getCreator(),ticketList);//create new entry in the hashmap for this person
         //Geef het ticket door om persoon up te daten
-        Object objectTicket = ticket;
         setChanged();
-        notifyObservers(objectTicket);
+        notifyObservers(ticket);
     }
 
     public ArrayList<Ticket> getTickets(Person creator){
@@ -53,18 +52,16 @@ public class TicketDatabase extends Database{
     }
 
     public ArrayList<Person> getCreators(){
-        ArrayList<Person> personlist = new ArrayList<Person>();
-        personlist.addAll(tD.keySet());
-        return personlist;
+        return new ArrayList<Person>(tD.keySet());
     }
 
     public Ticket getTicket(String personName, String ticketName){
         Ticket returnTicket = new EvenTicket(new Person(personName),0, TicketTypes.OtherTicket,"error");
         for(Person i:tD.keySet()){
-            if(i.getName() == personName){
+            if(Objects.equals(i.getName(), personName)){
                 ArrayList<Ticket> ticketList = tD.get(i);
                 for(Ticket t:ticketList){
-                    if(t.getTicketName() == ticketName){
+                    if(Objects.equals(t.getTicketName(), ticketName)){
                         returnTicket = t;
                     }
                 }

@@ -53,9 +53,7 @@ public abstract class Ticket {
     }
 
     public List<Person> getPayers(){
-        ArrayList<Person> payerPeople = new ArrayList<Person>();
-        payerPeople.addAll(payers.keySet());
-        return payerPeople;
+        return new ArrayList<Person>(payers.keySet());
     }
 
     public void addPayer(Person person, double amount){
