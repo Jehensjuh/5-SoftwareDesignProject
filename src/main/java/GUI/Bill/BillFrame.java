@@ -37,9 +37,15 @@ public class BillFrame extends JFrame implements ActionListener {
     }
 
     private void createBillPanel(){
+        //debug
+        HashMap<Person,Double> debt = new HashMap<Person, Double>();
+        debt.put(new Person("Alexander"),20.0);
+        debt.put(new Person("Jan"),30.0);
+        HashMap<Person, HashMap<Person, Double>> bill = new HashMap<Person, HashMap<Person, Double>>();
+        bill.put(new Person("Jens"),debt);
+
         System.out.println("person database: "+personDatabase.getDbp()+" ticket database: "+ticketDatabase.getDatabase());
-        personDatabase.printDatabase();
-        HashMap<Person, HashMap<Person,Double>> bill = c.getBill();//get bill
+        //HashMap<Person, HashMap<Person,Double>> bill = c.getBill();//get bill
         System.out.println("bill: "+bill+" inside hasmap bill: "+bill.values());
 
         ArrayList<JLabel> labelList = new ArrayList<JLabel>();//make list for all labels (we don't know how many labels we'll have in advance
@@ -59,8 +65,11 @@ public class BillFrame extends JFrame implements ActionListener {
         titlePanel.add(indebted);
         titlePanel.add(creditor);
         titlePanel.add(due);
-
-        billPanel.setLayout(new GridLayout(bill.size(),3));
+        int amountCreditors = 0;
+        for(Person p:bill.keySet()){
+            amountCreditors += bill.get(p).size();//for each person check the amount of creditors, total will be the sum of those
+        }
+        billPanel.setLayout(new GridLayout(amountCreditors,3));//rows : #elements, columns: 3
 
         if(!bill.isEmpty()){
             for(Person i:bill.keySet()){
