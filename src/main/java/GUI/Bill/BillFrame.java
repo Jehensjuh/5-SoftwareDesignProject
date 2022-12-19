@@ -38,14 +38,14 @@ public class BillFrame extends JFrame implements ActionListener {
 
     private void createBillPanel(){
         //debug
-        HashMap<Person,Double> debt = new HashMap<Person, Double>();
-        debt.put(new Person("Alexander"),20.0);
-        debt.put(new Person("Jan"),30.0);
-        HashMap<Person, HashMap<Person, Double>> bill = new HashMap<Person, HashMap<Person, Double>>();
-        bill.put(new Person("Jens"),debt);
+//        HashMap<Person,Double> debt = new HashMap<Person, Double>();
+//        debt.put(new Person("Alexander"),20.0);
+//        debt.put(new Person("Jan"),30.0);
+//        HashMap<Person, HashMap<Person, Double>> bill = new HashMap<Person, HashMap<Person, Double>>();
+//        bill.put(new Person("Jens"),debt);
 
         System.out.println("person database: "+personDatabase.getDbp()+" ticket database: "+ticketDatabase.getDatabase());
-        //HashMap<Person, HashMap<Person,Double>> bill = c.getBill();//get bill
+        HashMap<Person, HashMap<Person,Double>> bill = c.getBill();//get bill
         System.out.println("bill: "+bill+" inside hasmap bill: "+bill.values());
 
         ArrayList<JLabel> labelList = new ArrayList<JLabel>();//make list for all labels (we don't know how many labels we'll have in advance

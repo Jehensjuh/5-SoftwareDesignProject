@@ -119,7 +119,7 @@ public class InitPanel extends JPanel implements ActionListener {
                 }
             }
             System.out.println("creator: "+creator.getName()+" amountupfront: "+amountUpFront+" type: "+type+" name: "+ticketName);//debug
-            System.out.println(payers);//debug
+            System.out.println("payers: "+payers);//debug
             Ticket t = frame.f.getTicket(creator,amountUpFront,type,ticketName);//create ticket
             for(Person p:payers.keySet()){
                 t.addPayer(p,payers.get(p));//add all payers to the ticket

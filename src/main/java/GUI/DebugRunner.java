@@ -33,19 +33,19 @@ public class DebugRunner {
         c.clearDatabase();
         c.addObserver();
         //debug:
-        Person p1 = new Person("Jens");
-        Person p2 = new Person("Alexander");
-        Person p3 = new Person("Bob");
-        Person p4 = new Person("An");
-        personDatabase.addPerson(p1);
-        personDatabase.addPerson(p2);
-        personDatabase.addPerson(p3);
-        personDatabase.addPerson(p4);
-        Ticket t = f.getTicket(p1,200, TicketTypes.TaxiTicket,"ticket1");
-        t.addPayer(p2,0);
-        t.addPayer(p3,0);
-        t.addPayer(p4,0);
-        ticketDatabase.addEntry(t);
+//        Person p1 = new Person("Jens");
+//        Person p2 = new Person("Alexander");
+//        Person p3 = new Person("Bob");
+//        Person p4 = new Person("An");
+//        personDatabase.addPerson(p1);
+//        personDatabase.addPerson(p2);
+//        personDatabase.addPerson(p3);
+//        personDatabase.addPerson(p4);
+//        Ticket t = f.getTicket(p1,200, TicketTypes.TaxiTicket,"ticket1");
+//        t.addPayer(p2,0);
+//        t.addPayer(p3,0);
+//        t.addPayer(p4,0);
+//        ticketDatabase.addEntry(t);
         this.frame = new MainFrame(personDatabase,ticketDatabase,f,c);
     }
     public static void main(String[] arg){
