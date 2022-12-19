@@ -112,20 +112,41 @@ public class InitPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==ticketOptions){
-            this.type = (TicketTypes) ticketOptions.getSelectedItem();//sets the ticket type
+            if(!(ticketOptions.getSelectedItem() ==TicketTypes.ChooseTicket)){
+                this.type = (TicketTypes) ticketOptions.getSelectedItem();//sets the ticket type
+            }
+            else{
+                JOptionPane.showMessageDialog(null,"This is not a valid ticket type, please select another one","Wrong type selection",JOptionPane.WARNING_MESSAGE);
+            }
         }
         else if(e.getSource()==creatorOptions){
-            for(Person p:frame.pDatabase.getDbp()){
-                if(p.getName() == creatorOptions.getSelectedItem()){
-                    this.creator = p;
+            if(!(creatorOptions.getSelectedItem()=="Choose creator")){
+                for(Person p:frame.pDatabase.getDbp()){
+                    if(p.getName() == creatorOptions.getSelectedItem()){
+                        this.creator = p;
+                    }
                 }
             }
+            else{
+                JOptionPane.showMessageDialog(null,"This is not a valid creator option, please select another one","Wrong creator selection",JOptionPane.WARNING_MESSAGE);
+            }
+
         }
 //        else if(e.getSource()==addCreator){
 //            this.creator = new Person(JOptionPane.showInputDialog("Who created this ticket?:"));//sets the creator
 //        }
         else if(e.getSource()==addAmountUpFront){
-            this.amountUpFront=Double.parseDouble(JOptionPane.showInputDialog("How much did the creator pay up front?"));//sets the amountupfront
+            double amount = 0;
+            while(true){
+                try{
+                    amount = Double.parseDouble(JOptionPane.showInputDialog("How much did the creator pay up front?"));
+                    break;
+                }
+                catch(NumberFormatException ignore){
+                    JOptionPane.showMessageDialog(null,"This is not a value!!","Input error",JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            this.amountUpFront=amount;
         }
         else if(e.getSource()==submit){//ticket gets submitted
             //create ticket
@@ -133,7 +154,23 @@ public class InitPanel extends JPanel implements ActionListener {
             for(JCheckBox c:list.keySet()){
                 if(!Objects.equals(c.getText(), creator.getName())){//creater should not be added to payers
                     if(c.isSelected()){//if the checkbox is selected
-                        payers.put(frame.pDatabase.getPerson(c.getText()),valueOf(list.get(c).getText()));//add the person and their amount paid to the payers hashmap
+                        double value = 0;
+                        boolean test = false;
+                        while(true){
+                            try{
+                                if(!test){
+                                    value = Double.parseDouble(list.get(c).getText());
+                                }else{
+                                    value = Double.parseDouble(JOptionPane.showInputDialog("How much did "+c.getText()+" pay?"));
+                                }
+                                break;
+
+                            }catch(NumberFormatException ignore){
+                                JOptionPane.showMessageDialog(null,"The value next to "+c.getText()+" is not a value.","Input error",JOptionPane.ERROR_MESSAGE);
+                                test = true;
+                            }
+                        }
+                        payers.put(frame.pDatabase.getPerson(c.getText()),value);//add the person and their amount paid to the payers hashmap
                     }
                 }
             }
