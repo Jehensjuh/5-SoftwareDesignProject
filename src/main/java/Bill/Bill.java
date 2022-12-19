@@ -10,18 +10,17 @@ import java.util.Collections;
 import java.util.HashMap;
 
 public class Bill {
+    public Bill(){}
 
     //Berekent rekening
-    public static HashMap<Person,HashMap<Person,Double>> getBill(PersonDatabase pdb, TicketDatabase tdb)
+    public static HashMap<Person,HashMap<Person,Double>> getBill(PersonDatabase pdb)
     {
         //Maakt een map aan
         HashMap<Person,HashMap<Person,Double>> bill = new HashMap<Person,HashMap<Person,Double>>();
         //Sorteer de database en laat iedereen betalen
         pdb.sortDatabase();
-        ArrayList<Person> plist = new ArrayList<Person>();
-        ArrayList<Person> rplist = new ArrayList<Person>();
-        plist = pdb.getDbp();
-        rplist = pdb.getDbpReversed();
+        ArrayList<Person> plist = pdb.getDbp();
+        ArrayList<Person> rplist = pdb.getDbpReversed();
         for(Person p:plist)
         {
             HashMap<Person,Double> persondebt = new HashMap<Person,Double>();

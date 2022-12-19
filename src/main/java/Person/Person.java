@@ -1,7 +1,4 @@
 package Person;
-import Tickets.Ticket;
-import Database.TicketDatabase;
-import Database.Database;
 
 public class Person implements Comparable<Person>
 {
@@ -27,6 +24,7 @@ public class Person implements Comparable<Person>
     public void setAmountPaid(double amountPaid) {
         this.amountPaid = amountPaid;
     }
+    public void addAmountPaid(double payment) {this.amountPaid += payment;}
 
     //Methode om personen te vergelijken adhv amountPaid
     @Override

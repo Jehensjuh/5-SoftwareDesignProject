@@ -14,11 +14,12 @@ public class EvenTicket extends Ticket {
     @Override
     public void divideBill() {
         double amountOfPayers = this.payers.size();
-        double amountDue = this.amountUpfront/amountOfPayers; //amount everyone has to pay
-        payers.put(this.creator,this.amountUpfront-amountDue);
-        for(Person i : payers.keySet()){//maybe add a .getname
-            if(i != this.creator){ //creator already paid upfront (they don't have to pay themselves back)
-                payers.put(i,payers.get(i) - amountDue); //each person has to pay their init 0 - amount due
+        double amountDue = this.amountUpfront / amountOfPayers; //amount everyone has to pay
+        payers.put(this.creator, this.amountUpfront - amountDue);
+        for (Person i : payers.keySet()) {//maybe add a .getname
+            if (i != this.creator) //creator already paid upfront (they don't have to pay themselves back)
+            {
+                payers.put(i, -amountDue); //each person has to pay their init 0 - amount due
             }
         }
     }
