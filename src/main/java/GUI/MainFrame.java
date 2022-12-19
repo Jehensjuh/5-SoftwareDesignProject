@@ -6,6 +6,7 @@ import Database.TicketDatabase;
 import Factory.TicketFactory;
 import GUI.OpeningFrame.CreateTicketPanel;
 import GUI.OpeningFrame.NameListPanel;
+import Observers.ObserverTicket;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,6 +23,8 @@ public class MainFrame extends JFrame {
         this.ticketDatabase=ticketDatabase;
         this.f = factory;
         this.c = c;
+        /*c.clearDatabase();
+        c.addObserver();*/
         this.setTitle("Project Software Design");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//make sure the progam closes when you press x
         this.setResizable(false);//you cannot manually resize the program

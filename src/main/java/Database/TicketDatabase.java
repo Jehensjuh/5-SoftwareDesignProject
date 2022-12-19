@@ -40,7 +40,6 @@ public class TicketDatabase extends Database{
         //Geef het ticket door om persoon up te daten
         setChanged();
         notifyObservers(ticket);
-        System.out.println("Test2");
     }
 
     public ArrayList<Ticket> getTickets(Person creator){

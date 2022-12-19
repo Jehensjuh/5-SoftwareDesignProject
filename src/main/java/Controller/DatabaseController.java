@@ -1,5 +1,6 @@
 package Controller;
 
+import Observers.ObserverTicket;
 import Person.Person;
 import Database.TicketDatabase;
 import Database.PersonDatabase;
@@ -141,5 +142,11 @@ public class DatabaseController implements Controller {
     public void clearDatabase() {
         dbp.clearDatabase();
         dbt.clearDatabase();
+    }
+
+    @Override
+    public void addObserver() {
+        ObserverTicket observerTicket = new ObserverTicket();
+        dbt.addObserver(observerTicket);
     }
 }

@@ -64,4 +64,6 @@ public interface Controller
 
     //Functie die de databases leegmaakt
     public void clearDatabase();
+
+    public void addObserver();
 }

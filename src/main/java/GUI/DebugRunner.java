@@ -31,8 +31,7 @@ public class DebugRunner {
         this.personDatabase = c.getPersonDatabase();
         this.ticketDatabase = c.getTicketDatabase();
         c.clearDatabase();
-        ObserverTicket observerTicket = new ObserverTicket();
-        ticketDatabase.addObserver(observerTicket);
+        c.addObserver();
         //debug:
         Person p1 = new Person("Jens");
         Person p2 = new Person("Alexander");
