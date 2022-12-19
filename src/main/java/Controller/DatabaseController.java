@@ -17,6 +17,14 @@ public class DatabaseController implements Controller {
         this.dbp = PersonDatabase.getInstance();
         this.dbt = TicketDatabase.getInstance();
     }
+    //temporary
+    public PersonDatabase getPersonDatabase(){
+        return this.dbp;
+    }
+
+    public TicketDatabase getTicketDatabase(){
+        return this.dbt;
+    }
 
     @Override
     public void addPerson(Person p) {

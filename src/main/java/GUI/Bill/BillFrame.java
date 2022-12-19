@@ -1,6 +1,7 @@
 package GUI.Bill;
 
 import Bill.Bill;
+import Controller.DatabaseController;
 import Database.PersonDatabase;
 import Database.TicketDatabase;
 import Person.Person;
@@ -15,11 +16,13 @@ import java.util.HashMap;
 public class BillFrame extends JFrame implements ActionListener {
     PersonDatabase personDatabase;
     TicketDatabase ticketDatabase;
+    DatabaseController c;
 
     JButton shutdown;
-    public BillFrame(PersonDatabase personDatabase, TicketDatabase ticketDatabase){
+    public BillFrame(PersonDatabase personDatabase, TicketDatabase ticketDatabase, DatabaseController c){
         this.personDatabase=personDatabase;
         this.ticketDatabase=ticketDatabase;
+        this.c =c;
 
         this.setTitle("Bill");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//make sure the progam closes when you press x
@@ -35,7 +38,7 @@ public class BillFrame extends JFrame implements ActionListener {
 
     private void createBillPanel(){
         System.out.println("person database: "+personDatabase.getDbp()+" ticket database: "+ticketDatabase.getDatabase());
-        HashMap<Person, HashMap<Person,Double>> bill = Bill.getBill(personDatabase,ticketDatabase);//get bill
+        HashMap<Person, HashMap<Person,Double>> bill = c.getBill();//get bill
         System.out.println("bill: "+bill+" inside hasmap bill: "+bill.values());
 
         ArrayList<JLabel> labelList = new ArrayList<JLabel>();//make list for all labels (we don't know how many labels we'll have in advance

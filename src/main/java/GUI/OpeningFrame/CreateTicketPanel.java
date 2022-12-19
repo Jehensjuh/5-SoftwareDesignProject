@@ -1,5 +1,6 @@
 package GUI.OpeningFrame;
 
+import Controller.DatabaseController;
 import Database.PersonDatabase;
 import Database.TicketDatabase;
 import Factory.TicketFactory;
@@ -17,10 +18,12 @@ public class CreateTicketPanel extends JPanel implements ActionListener {
     TicketDatabase ticketDatabase;
     PersonDatabase personDatabase;
     TicketFactory f;
-    public CreateTicketPanel(PersonDatabase personDatabase, TicketDatabase ticketDatabase, TicketFactory f){
+    DatabaseController c;
+    public CreateTicketPanel(PersonDatabase personDatabase, TicketDatabase ticketDatabase, TicketFactory f, DatabaseController c){
         this.personDatabase=personDatabase;
         this.ticketDatabase=ticketDatabase;
         this.f = f;
+        this.c = c;
 
         this.setBounds(250,0,250,720/2);
         this.setBackground(Color.BLACK);
@@ -43,7 +46,7 @@ public class CreateTicketPanel extends JPanel implements ActionListener {
         }
         else if(e.getSource()==calculateBill){
             //open window with calculated bill
-            BillFrame billFrame = new BillFrame(personDatabase, ticketDatabase);//opens bill window
+            BillFrame billFrame = new BillFrame(personDatabase, ticketDatabase, c);//opens bill window
         }
     }
 }
