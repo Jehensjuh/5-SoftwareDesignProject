@@ -9,10 +9,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
 import static java.lang.Double.valueOf;
+
 
 public class InitPanel extends JPanel implements ActionListener {
     //databases moet meegegeven worden bij init;
@@ -33,6 +35,7 @@ public class InitPanel extends JPanel implements ActionListener {
 
 
     JComboBox ticketOptions;
+    JComboBox creatorOptions;
     public InitPanel(TicketFrame frame){
 
         //panel init
@@ -49,12 +52,20 @@ public class InitPanel extends JPanel implements ActionListener {
         this.ticketOptions = new JComboBox(ticketTypes);//create combobox with selection
         this.ticketOptions.setSelectedIndex(4);//we want chooseticket to be the first option to stimulate the user to select a ticket type (else there won't be any and we'll have an error
         this.ticketOptions.addActionListener(this);
+        //dropdown with possible creators
+        ArrayList<String> possibleCreators = new ArrayList<>();
+        possibleCreators.add("Choose creator");
+        for(Person p:frame.pDatabase.getDbp()){
+            possibleCreators.add(p.getName());
+        }
+        this.creatorOptions = new JComboBox(possibleCreators.toArray(new String[0]));
+        this.creatorOptions.addActionListener(this);
 
         //buttons
         //addCreator
-        this.addCreator = new Button("add creator");
-        this.addCreator.setPreferredSize(new Dimension(100,50));
-        this.addCreator.addActionListener(this);
+//        this.addCreator = new Button("add creator");
+//        this.addCreator.setPreferredSize(new Dimension(100,50));
+//        this.addCreator.addActionListener(this);
         //addAmountUpFront
         this.addAmountUpFront = new Button("add amountupfront");
         this.addAmountUpFront.setPreferredSize(new Dimension(100,50));
@@ -73,7 +84,8 @@ public class InitPanel extends JPanel implements ActionListener {
         JPanel southPanel = new JPanel();
         JPanel centerPanel = new JPanel();
         northPanel.add(ticketOptions);//combobox with all type options
-        northPanel.add(addCreator);//button to add creator of the ticket
+        //northPanel.add(addCreator);//button to add creator of the ticket
+        northPanel.add(creatorOptions);//combobox listing possible creators
         northPanel.add(addAmountUpFront);//button to add how much the creator has paid
         southPanel.add(submit);//submit button to create ticket
         this.createPayersList(centerPanel);
@@ -102,9 +114,16 @@ public class InitPanel extends JPanel implements ActionListener {
         if(e.getSource()==ticketOptions){
             this.type = (TicketTypes) ticketOptions.getSelectedItem();//sets the ticket type
         }
-        else if(e.getSource()==addCreator){
-            this.creator = new Person(JOptionPane.showInputDialog("Who created this ticket?:"));//sets the creator
+        else if(e.getSource()==creatorOptions){
+            for(Person p:frame.pDatabase.getDbp()){
+                if(p.getName() == creatorOptions.getSelectedItem()){
+                    this.creator = p;
+                }
+            }
         }
+//        else if(e.getSource()==addCreator){
+//            this.creator = new Person(JOptionPane.showInputDialog("Who created this ticket?:"));//sets the creator
+//        }
         else if(e.getSource()==addAmountUpFront){
             this.amountUpFront=Double.parseDouble(JOptionPane.showInputDialog("How much did the creator pay up front?"));//sets the amountupfront
         }
