@@ -22,7 +22,7 @@ public class UnevenTicket_ITest {
     Person p3 = new Person("Bob");
     Person p4 = new Person("Tim");
 
-    Controller controller = new DatabaseController(pdb, tdb);
+    Controller controller = new DatabaseController();
 
     public UnevenTicket_ITest(){
 

@@ -28,7 +28,7 @@ public class PersonObserver_UTest {
     Ticket t1 = f.getTicket(p1,120, TaxiTicket,"Taxi");
     Ticket t2 = f.getTicket(p2, 300, RestaurantTicket, "Restaurant");
     ObserverTicket observerTicket = new ObserverTicket();
-    Controller controller = new DatabaseController(dbp, dbt);
+    Controller controller = new DatabaseController();
 
     public PersonObserver_UTest() {}
 

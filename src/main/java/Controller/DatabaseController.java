@@ -13,9 +13,9 @@ public class DatabaseController implements Controller {
     private final PersonDatabase dbp;
     private final TicketDatabase dbt;
 
-    public DatabaseController(PersonDatabase dbp, TicketDatabase dbt) {
-        this.dbp = dbp;
-        this.dbt = dbt;
+    public DatabaseController() {
+        this.dbp = PersonDatabase.getInstance();
+        this.dbt = TicketDatabase.getInstance();
     }
 
     @Override
@@ -126,7 +126,6 @@ public class DatabaseController implements Controller {
                 persondebt = null;
             }
         }
-        System.out.println(bill);
         return bill;
     }
 }

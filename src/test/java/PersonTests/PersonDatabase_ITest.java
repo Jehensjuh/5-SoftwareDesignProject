@@ -20,7 +20,7 @@ public class PersonDatabase_ITest
     Person p4 = new Person("Jens", -200);
     Person p5 = new Person("Alexander", 100);
 
-    Controller controller = new DatabaseController(dbp, dbt);
+    Controller controller = new DatabaseController();
 
     public PersonDatabase_ITest() {}
 

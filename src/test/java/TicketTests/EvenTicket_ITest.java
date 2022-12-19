@@ -21,7 +21,7 @@ public class EvenTicket_ITest {
     Person p1 = new Person("Jan");
     Person p2 = new Person("An");
     Person p3 = new Person("Bob");
-    Controller controller = new DatabaseController(pdb, tdb);
+    Controller controller = new DatabaseController();
 
 
     public EvenTicket_ITest(){

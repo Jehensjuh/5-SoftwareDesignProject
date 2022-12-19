@@ -29,7 +29,7 @@ public class Bill_UTest {
     Ticket t2 = f.getTicket(p2, 500, RestaurantTicket, "Restaurant");
     Ticket t3 = f.getTicket(p4, 700, RestaurantTicket, "Restaurant2");
     ObserverTicket observerTicket = new ObserverTicket();
-    Controller controller = new DatabaseController(dbp, dbt);
+    Controller controller = new DatabaseController();
 
     public Bill_UTest() {}
 
