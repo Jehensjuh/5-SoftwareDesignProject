@@ -63,11 +63,17 @@ public class NameListPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==addName){
             String name = JOptionPane.showInputDialog("Input name: ");
+            while(pdb.nameInDatabase(name)){
+                name = JOptionPane.showInputDialog("Name is already in the list, try again: ");
+            }
             pdb.addPerson(new Person(name));//add person to the database
             this.nameList.addElement(name);//displays person in the list
         }
         else if(e.getSource()==removeButton){
             String name = JOptionPane.showInputDialog("What name to remove?: ");
+            while(!pdb.nameInDatabase(name)){
+                name = JOptionPane.showInputDialog("Name is not in list, try again: ");
+            }
             pdb.removePersonName(name);//removes person from the database
             this.nameList.removeElement(name);//removes person from the displayed list
         }
