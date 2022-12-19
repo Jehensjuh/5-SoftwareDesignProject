@@ -8,6 +8,7 @@ import GUI.CreateTicket.InitPanel;
 import GUI.CreateTicket.TicketFrame;
 import GUI.OpeningFrame.CreateTicketPanel;
 import GUI.OpeningFrame.NameListPanel;
+import Observers.ObserverTicket;
 import Person.Person;
 import Tickets.Ticket;
 import Tickets.TicketTypes;
@@ -29,6 +30,9 @@ public class DebugRunner {
         this.f = new TicketFactory();
         this.personDatabase = c.getPersonDatabase();
         this.ticketDatabase = c.getTicketDatabase();
+        c.clearDatabase();
+        ObserverTicket observerTicket = new ObserverTicket();
+        ticketDatabase.addObserver(observerTicket);
         //debug:
         Person p1 = new Person("Jens");
         Person p2 = new Person("Alexander");

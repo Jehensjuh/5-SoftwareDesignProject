@@ -59,5 +59,9 @@ public interface Controller
     //Functie die ziet of een person de creator is van een ticket
     public boolean isCreator(Person creator);
 
+    //Functie die de eindrekening maakt
     public HashMap<Person, HashMap<Person, Double>> getBill();
+
+    //Functie die de databases leegmaakt
+    public void clearDatabase();
 }

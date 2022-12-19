@@ -38,6 +38,7 @@ public class BillFrame extends JFrame implements ActionListener {
 
     private void createBillPanel(){
         System.out.println("person database: "+personDatabase.getDbp()+" ticket database: "+ticketDatabase.getDatabase());
+        personDatabase.printDatabase();
         HashMap<Person, HashMap<Person,Double>> bill = c.getBill();//get bill
         System.out.println("bill: "+bill+" inside hasmap bill: "+bill.values());
 

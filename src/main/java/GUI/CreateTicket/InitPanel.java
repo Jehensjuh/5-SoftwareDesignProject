@@ -1,5 +1,6 @@
 package GUI.CreateTicket;
 
+import Database.PersonDatabase;
 import Person.Person;
 import Tickets.Ticket;
 import Tickets.TicketTypes;
@@ -123,8 +124,9 @@ public class InitPanel extends JPanel implements ActionListener {
             for(Person p:payers.keySet()){
                 t.addPayer(p,payers.get(p));//add all payers to the ticket
             }
-            t.divideBill();//divide the bill
+            //t.divideBill();//divide the bill
             frame.tDatabase.addEntry(t);//add ticket to the database
+            PersonDatabase.getInstance().printDatabase();
             frame.dispose();//ticket frame will close once ticket is submitted
         }
     }

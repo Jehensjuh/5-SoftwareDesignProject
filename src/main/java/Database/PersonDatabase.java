@@ -126,4 +126,10 @@ public class PersonDatabase extends Database
         }
         return reversed;
     }
+
+    @Override
+    public void clearDatabase()
+    {
+        dbp.clear();
+    }
 }

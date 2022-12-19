@@ -136,4 +136,10 @@ public class DatabaseController implements Controller {
         }
         return bill;
     }
+
+    @Override
+    public void clearDatabase() {
+        dbp.clearDatabase();
+        dbt.clearDatabase();
+    }
 }

@@ -19,6 +19,7 @@ public class ObserverTicket implements Observer
         {
             current = p.getAmountPaid();
             p.setAmountPaid(t.getAmount(p) + current);
+            System.out.println("Test");
         }
     }
 }
