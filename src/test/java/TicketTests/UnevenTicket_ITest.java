@@ -32,14 +32,14 @@ public class UnevenTicket_ITest {
     public void Initialize(){
         TicketFactory f = new TicketFactory();
         Ticket t1 = f.getTicket(p1,100, TicketTypes.RestaurantTicket,"rest");
-        t1.addPayer(p1,20);
+        //t1.addPayer(p1,20);
         t1.addPayer(p2,10);
         t1.addPayer(p3);
         t1.addPayer(p4);
         controller.addEntry(t1);
         Ticket t2 = f.getTicket(p2, 200, TicketTypes.RestaurantTicket, "rest2");
         t2.addPayer(p1,30);
-        t2.addPayer(p2);
+        //t2.addPayer(p2);
         t2.addPayer(p3);
         t2.addPayer(p4,70);
         controller.addEntry(t2);
@@ -47,14 +47,14 @@ public class UnevenTicket_ITest {
 
     @Test
     public void t_DivideBill(){
-        assertThat("testing amount debt",80 == controller.getTicket("Jan","rest").getAmount(p1));
+        //assertThat("testing amount debt",100 == controller.getTicket("Jan","rest").getAmount(p1));
         assertThat("testing amount debt",-10 == controller.getTicket("Jan","rest").getAmount(p2));
-        assertThat("testing amount debt",-35 == controller.getTicket("Jan","rest").getAmount(p3));
-        assertThat("testing amount debt",-35 == controller.getTicket("Jan","rest").getAmount(p4));
+        assertThat("testing amount debt",-45 == controller.getTicket("Jan","rest").getAmount(p3));
+        assertThat("testing amount debt",-45 == controller.getTicket("Jan","rest").getAmount(p4));
 
         assertThat("testing amount debt",-30 == controller.getTicket("An","rest2").getAmount(p1));
-        assertThat("testing amount debt",150 == controller.getTicket("An","rest2").getAmount(p2));
-        assertThat("testing amount debt",-50 == controller.getTicket("An","rest2").getAmount(p3));
+        //assertThat("testing amount debt",200 == controller.getTicket("An","rest2").getAmount(p2));
+        assertThat("testing amount debt",-100 == controller.getTicket("An","rest2").getAmount(p3));
         assertThat("testing amount debt",-70 == controller.getTicket("An","rest2").getAmount(p4));
 
     }
