@@ -111,79 +111,94 @@ public class InitPanel extends JPanel implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==ticketOptions){
-            if(!(ticketOptions.getSelectedItem() ==TicketTypes.ChooseTicket)){
+        if (e.getSource() == ticketOptions) {
+            if (!(ticketOptions.getSelectedItem() == TicketTypes.ChooseTicket)) {
                 this.type = (TicketTypes) ticketOptions.getSelectedItem();//sets the ticket type
+            } else {
+                JOptionPane.showMessageDialog(null, "This is not a valid ticket type, please select another one", "Wrong type selection", JOptionPane.WARNING_MESSAGE);
             }
-            else{
-                JOptionPane.showMessageDialog(null,"This is not a valid ticket type, please select another one","Wrong type selection",JOptionPane.WARNING_MESSAGE);
-            }
-        }
-        else if(e.getSource()==creatorOptions){
-            if(!(creatorOptions.getSelectedItem()=="Choose creator")){
-                for(Person p:frame.pDatabase.getDbp()){
-                    if(p.getName() == creatorOptions.getSelectedItem()){
+        } else if (e.getSource() == creatorOptions) {
+            if (!(creatorOptions.getSelectedItem() == "Choose creator")) {
+                for (Person p : frame.pDatabase.getDbp()) {
+                    if (p.getName() == creatorOptions.getSelectedItem()) {
                         this.creator = p;
                     }
                 }
-            }
-            else{
-                JOptionPane.showMessageDialog(null,"This is not a valid creator option, please select another one","Wrong creator selection",JOptionPane.WARNING_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "This is not a valid creator option, please select another one", "Wrong creator selection", JOptionPane.WARNING_MESSAGE);
             }
 
         }
 //        else if(e.getSource()==addCreator){
 //            this.creator = new Person(JOptionPane.showInputDialog("Who created this ticket?:"));//sets the creator
 //        }
-        else if(e.getSource()==addAmountUpFront){
+        else if (e.getSource() == addAmountUpFront) {
             double amount = 0;
-            while(true){
-                try{
+            while (true) {
+                try {
                     amount = Double.parseDouble(JOptionPane.showInputDialog("How much did the creator pay up front?"));
                     break;
-                }
-                catch(NumberFormatException ignore){
-                    JOptionPane.showMessageDialog(null,"This is not a value!!","Input error",JOptionPane.ERROR_MESSAGE);
+                } catch (NumberFormatException ignore) {
+                    JOptionPane.showMessageDialog(null, "This is not a value!!", "Input error", JOptionPane.ERROR_MESSAGE);
                 }
             }
-            this.amountUpFront=amount;
-        }
-        else if(e.getSource()==submit){//ticket gets submitted
+            this.amountUpFront = amount;
+        } else if (e.getSource() == submit) {//ticket gets submitted
             //create ticket
             //first we take a look at who is selected as payer and how much they paid (so all people affected by this ticket)
-            for(JCheckBox c:list.keySet()){
-                if(!Objects.equals(c.getText(), creator.getName())){//creater should not be added to payers
-                    if(c.isSelected()){//if the checkbox is selected
+            for (JCheckBox c : list.keySet()) {
+                if (frame.f.isEven(this.type)) {//the ticket type is even
+                    if (c.isSelected()) {//if the checkbox is selected
                         double value = 0;
-                        boolean test = false;
-                        while(true){
-                            try{
-                                if(!test){
+                        boolean test = false;//test whether a value is in the textbox yes or no
+                        while (true) {
+                            try {
+                                if (!test) {
                                     value = Double.parseDouble(list.get(c).getText());
-                                }else{
-                                    value = Double.parseDouble(JOptionPane.showInputDialog("How much did "+c.getText()+" pay?"));
+                                } else {
+                                    value = Double.parseDouble(JOptionPane.showInputDialog("How much did " + c.getText() + " pay?"));
                                 }
                                 break;
 
-                            }catch(NumberFormatException ignore){
-                                JOptionPane.showMessageDialog(null,"The value next to "+c.getText()+" is not a value.","Input error",JOptionPane.ERROR_MESSAGE);
+                            } catch (NumberFormatException ignore) {
+                                JOptionPane.showMessageDialog(null, "The value next to " + c.getText() + " is not a value.", "Input error", JOptionPane.ERROR_MESSAGE);
                                 test = true;
                             }
                         }
-                        payers.put(frame.pDatabase.getPerson(c.getText()),value);//add the person and their amount paid to the payers hashmap
+                        payers.put(frame.pDatabase.getPerson(c.getText()), 0.0);//with an even ticket people shouldn't enter a value, if there is a value this is probably a mistake so we should ignore it
+                    }
+                } else {//the ticket type is uneven
+                    if (c.isSelected()) {//if the checkbox is selected
+                        double value = 0;
+                        boolean test = false;//test whether a value is in the textbox yes or no
+                        while (true) {
+                            try {
+                                if (!test) {
+                                    value = Double.parseDouble(list.get(c).getText());
+                                } else {
+                                    value = Double.parseDouble(JOptionPane.showInputDialog("How much did " + c.getText() + " pay?"));
+                                }
+                                break;
+
+                            } catch (NumberFormatException ignore) {
+                                JOptionPane.showMessageDialog(null, "The value next to " + c.getText() + " is not a value.", "Input error", JOptionPane.ERROR_MESSAGE);
+                                test = true;
+                            }
+                        }
+                        payers.put(frame.pDatabase.getPerson(c.getText()), value);//add the person and their amount paid to the payers hashmap
                     }
                 }
             }
-            System.out.println("creator: "+creator.getName()+" amountupfront: "+amountUpFront+" type: "+type+" name: "+ticketName);//debug
-            System.out.println("payers: "+payers);//debug
-            Ticket t = frame.f.getTicket(creator,amountUpFront,type,ticketName);//create ticket
-            for(Person p:payers.keySet()){
-                t.addPayer(p,payers.get(p));//add all payers to the ticket
-            }
-            //t.divideBill();//divide the bill
-            frame.tDatabase.addEntry(t);//add ticket to the database
-            PersonDatabase.getInstance().printDatabase();
-            frame.dispose();//ticket frame will close once ticket is submitted
+        System.out.println("creator: " + creator.getName() + " amountupfront: " + amountUpFront + " type: " + type + " name: " + ticketName);//debug
+        System.out.println("payers: " + payers);//debug
+        Ticket t = frame.f.getTicket(creator, amountUpFront, type, ticketName);//create ticket
+        for (Person p : payers.keySet()) {
+            t.addPayer(p, payers.get(p));//add all payers to the ticket
+        }
+        //t.divideBill();//divide the bill
+        frame.tDatabase.addEntry(t);//add ticket to the database
+        PersonDatabase.getInstance().printDatabase();
+        frame.dispose();//ticket frame will close once ticket is submitted
         }
     }
 }
