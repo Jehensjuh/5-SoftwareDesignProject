@@ -8,8 +8,8 @@ import java.util.Objects;
 
 public class PersonDatabase extends Database
 {
-    //Lijst met al de personen
-    private final ArrayList<Person> dbp;
+
+    private final ArrayList<Person> dbp; //Arraylist containing all persons
     private static PersonDatabase instance;
 
     //Constructor
@@ -24,7 +24,7 @@ public class PersonDatabase extends Database
         return instance;
     }
 
-    //Functie om een persoon toe te voegen
+    //add person to database
     public void addPerson(Person p)
     {
         if(!this.dbp.contains(p))
@@ -37,8 +37,8 @@ public class PersonDatabase extends Database
         }
     }
 
-    //Functie om een persoon te verwijderen
-    //error geven als de persoon nog moet betalen
+    //remove person from database
+    //gives error when person still has to pay
     public void removePerson(Person p)
     {
         if(this.dbp.contains(p))
@@ -55,7 +55,7 @@ public class PersonDatabase extends Database
         }
     }
 
-    //Functie om een persoon te verwijderen op naam
+    //delete person using their name
     public void removePersonName(String s)
     {
         for(Person p : dbp)
@@ -69,7 +69,7 @@ public class PersonDatabase extends Database
         System.out.println("Person not in database");
     }
 
-    //Functie om de lijst te printen
+    //print the list
     public void printDatabase()
     {
         System.out.println("Personen");
@@ -80,7 +80,7 @@ public class PersonDatabase extends Database
         System.out.println();
     }
 
-    //Functie om te zien of een persoon in de database zit
+    //checks whether a person is in the database
     public boolean inDatabase(Person p)
     {
         return this.dbp.contains(p);
@@ -95,7 +95,7 @@ public class PersonDatabase extends Database
         return new Person("error");
     }
 
-    //Functie om te zien of een persoon in de database zit op naam
+    //checks whether a person is in the database using their name
     public boolean nameInDatabase(String s)
     {
         for(Person p : dbp)

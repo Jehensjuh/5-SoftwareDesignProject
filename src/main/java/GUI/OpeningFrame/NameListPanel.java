@@ -74,8 +74,13 @@ public class NameListPanel extends JPanel implements ActionListener {
             while(!pdb.nameInDatabase(name)){
                 name = JOptionPane.showInputDialog("Name is not in list, try again: ");
             }
-            pdb.removePersonName(name);//removes person from the database
-            this.nameList.removeElement(name);//removes person from the displayed list
+            if(pdb.getPerson(name).getAmountPaid()!=0){
+                JOptionPane.showMessageDialog(null,"Can't remove, This user is still involved in tickets","User Removal Error",JOptionPane.ERROR_MESSAGE);
+            }
+            else{
+                pdb.removePersonName(name);//removes person from the database
+                this.nameList.removeElement(name);//removes person from the displayed list
+            }
         }
     }
 }

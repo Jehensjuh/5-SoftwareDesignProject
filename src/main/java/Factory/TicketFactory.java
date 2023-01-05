@@ -8,6 +8,7 @@ import Tickets.UnevenTicket;
 
 public class TicketFactory {
 
+    //checks whether the tickettype is even
     public boolean isEven(TicketTypes type){
         switch(type){
             case TaxiTicket: return true;

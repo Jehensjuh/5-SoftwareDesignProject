@@ -24,7 +24,7 @@ public class UnevenTicket extends Ticket{
                 indebted.add(i);    //person get's added to the list
             }
             else{
-                if(i != this.creator){ //creator has paid upfront so value does not have to change
+                if(i != this.creator){
                     tempValue -= this.getAmount(i); //total amount of debt decreases because a bit was already paid back
                     payers.put(i, -this.getAmount(i)); //person has paid this amount so their value becomes a negative one now (used for further computations)
                 }

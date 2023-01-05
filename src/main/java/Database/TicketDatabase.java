@@ -27,7 +27,7 @@ public class TicketDatabase extends Database{
     }
 
     public void addEntry(Ticket ticket) {
-        ticket.divideBill(); //doet automitisch de berekening
+        ticket.divideBill();
         for(Person i: tD.keySet()){
             if(i == ticket.getCreator()){//if the person is already in the hashmap
                 tD.get(i).add(ticket);//add the ticket to their arraylist
@@ -37,7 +37,7 @@ public class TicketDatabase extends Database{
         ArrayList<Ticket> ticketList = new ArrayList<Ticket>();//person is not yet in the hashmap so we need to create a new arraylist
         ticketList.add(ticket);//add the ticket to the arraylist
         tD.put(ticket.getCreator(),ticketList);//create new entry in the hashmap for this person
-        //Geef het ticket door om persoon up te daten
+        //relay ticket to update the person
         setChanged();
         notifyObservers(ticket);
     }
@@ -94,23 +94,7 @@ public class TicketDatabase extends Database{
         return false;
     }
 
-    /*
-    //Een functie die al de tickets teruggeeft
-    public ArrayList<Ticket> getAllTickets()
-    {
-        ArrayList<Ticket> allTickets = new ArrayList<Ticket>();
-        for(Person p:tD.keySet())
-        {
-            for(Ticket t:tD.get(p))
-            {
-                allTickets.add(t);
-            }
-        }
-        return allTickets;
-    }
-    */
-
-    //Functie die al de tickets van de persoon geeft
+    //returns all tickets linked to a person
     public ArrayList<Ticket> getInvolvedTickets(Person p) {
         ArrayList<Ticket> involvedTickets = new ArrayList<Ticket>();
         for (Person i : tD.keySet()) {

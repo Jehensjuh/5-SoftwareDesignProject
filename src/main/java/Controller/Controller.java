@@ -14,56 +14,57 @@ import java.util.HashMap;
 
 public interface Controller
 {
-    //Functie om een person toe te voegen
+    //add person
     public void addPerson(Person p);
 
-    //Functie om een person te verwijderen
+    //remove person
     public void removePerson(Person p);
 
-    //Functie om een person te verwijderen op naam
+    //remove person using name
     public void removePersonName(String name);
 
-    //Functie om de database te printen
+    //print person database
     public void printPersonDatabase();
 
-    //Functie om te zien of een person in de database zit
+    //checks whether a person is in the database
     public boolean inDatabase(Person p);
 
-    //Functie om te zien of een person in de database zit op basis van naam
+    //checks whether a person is in the database using their name
     public Boolean nameInDatabase(String name);
 
-    //Functie die de database sorteert op basis van amountPaid
+    //sorts the database by amountPaid
     public void sortDatabase();
 
-    //Functie die de database teruggeeft
+    //returns database
     public ArrayList<Person> getDbp();
 
-    //Functie die het omgekeerde van de database teruggeeft
+    //returns reversed database
     public ArrayList<Person> getDbpReversed();
 
-    //Functie die al de tickets van de persoon geeft
+    //returns all tickets linked to a person
     public void getInvolvedTickets(Person p);
 
-    //Functie om een ticket toe te voegen
+    //add ticket
     public void addEntry(Ticket ticket);
 
-    //Functie die al de tickets van een creator teruggeeft
+    //returns tickets linked to a creator
     public ArrayList<Ticket> getTickets(Person creator);
 
-    //Functie die al de creators teruggeeft
+    //returns all creators
     public ArrayList<Person> getCreators();
 
-    //Functie die een bepaalt ticket teruggeeft
+    //returns ticket based on creator name and ticketname
     public Ticket getTicket(String personName, String ticketName);
 
-    //Functie die ziet of een person de creator is van een ticket
+    //checks whether a person is the creator of a ticket
     public boolean isCreator(Person creator);
 
-    //Functie die de eindrekening maakt
+    //calculates bill
     public HashMap<Person, HashMap<Person, Double>> getBill();
 
-    //Functie die de databases leegmaakt
+    //clears database
     public void clearDatabase();
 
+    //adds observer
     public void addObserver();
 }
