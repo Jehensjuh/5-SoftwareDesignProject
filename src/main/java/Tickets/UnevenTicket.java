@@ -24,26 +24,31 @@ public class UnevenTicket extends Ticket{
                 indebted.add(i);    //person gets added to the list
             }
             else{
+                tempValue -= this.getAmount(i); //total amount of debt decreases because a bit was already paid back
                 if(i != this.creator){ //creator has paid upfront so value does not have to change
-                    tempValue -= this.getAmount(i); //total amount of debt decreases because a bit was already paid back
                     payers.put(i, -this.getAmount(i)); //person has paid this amount so their value becomes a negative one now (used for further computations)
                 }
-//                else
-//                {
-//                    tempValue -= this.getAmount(i); // tempValue = tempValue - amount of creator???? that would leave a negative value or 0 depending on who comes first in list??
-//                    payers.put(i,amountUpfront-this.getAmount(i)); //creator should not be in payers
-//                }
+                else
+                {
+                    payers.put(i,amountUpfront-this.getAmount(i));
+                }
             }
         }
-        double amountDue = tempValue/(indebted.size()+1); //remainder of debt gets evenly divided over all remaining payers (and the creator, they have to pay too!)
-        double creatorAmount = tempValue - amountDue; //the creator also has to pay, so the amount he expects from other people is the amount that hasn't been paid yet - his own share
-        this.creator.setAmountPaid(creatorAmount);//Alexander is this correct?? maybe we should update the amountupfront so everything stays within ticket?, this way you could extract the amountupfront from the ticket later
+        double amountDue = tempValue/(indebted.size()); //remainder of debt gets evenly divided over all remaining payers
         for(Person i:indebted)
         {
-            if(i != this.creator)//just to be sure
+            if(i != this.creator)
             {
                 payers.put(i,-amountDue); //these people have paid 0, so 0 - amountDue leaves a negative balance
             }
+            else
+            {
+                payers.put(i,amountUpfront-amountDue);
+            }
+        }
+        if (!payers.containsKey(creator))
+        {
+            payers.put(this.creator, this.amountUpfront);
         }
     }
 }

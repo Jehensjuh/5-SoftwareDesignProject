@@ -8,23 +8,24 @@ import java.util.Objects;
 
 public class PersonDatabase extends Database
 {
-    //Lijst met al de personen
+    //list with all the persons
     private final ArrayList<Person> dbp;
     private static PersonDatabase instance;
 
-    //Constructor
+    //constructor
     public PersonDatabase() {
         this.dbp = new ArrayList<Person>();
     }
 
-    public static PersonDatabase getInstance(){//singleton
+    //singleton
+    public static PersonDatabase getInstance(){
         if (instance == null){
             instance = new PersonDatabase();
         }
         return instance;
     }
 
-    //Functie om een persoon toe te voegen
+    //add a person
     public void addPerson(Person p)
     {
         if(!this.dbp.contains(p))
@@ -33,35 +34,42 @@ public class PersonDatabase extends Database
         }
         else
         {
+            //create a pop-up
             System.out.println("Person already in database");
         }
     }
 
-    //Functie om een persoon te verwijderen
-    //error geven als de persoon nog moet betalen
+    //remove a person
     public void removePerson(Person p)
     {
         if(this.dbp.contains(p))
         {
             if(p.getAmountPaid() != 0)
             {
+                //creates a pop-up
                 System.out.println("Person still has to pay");
             }
             this.dbp.remove(p);
         }
         else
         {
+            //create a pop-up
             System.out.println("Person not in database");
         }
     }
 
-    //Functie om een persoon te verwijderen op naam
+    //remove person based on name
     public void removePersonName(String s)
     {
         for(Person p : dbp)
         {
             if(Objects.equals(p.getName(), s))
             {
+                if(p.getAmountPaid() != 0)
+                {
+                    //creates a pop-up
+                    System.out.println("Person still has to pay");
+                }
                 this.removePerson(p);
                 break;
             }
@@ -69,7 +77,7 @@ public class PersonDatabase extends Database
         System.out.println("Person not in database");
     }
 
-    //Functie om de lijst te printen
+    //print the list
     public void printDatabase()
     {
         System.out.println("Personen");
@@ -80,22 +88,13 @@ public class PersonDatabase extends Database
         System.out.println();
     }
 
-    //Functie om te zien of een persoon in de database zit
+    //see if a person is in the database
     public boolean inDatabase(Person p)
     {
         return this.dbp.contains(p);
     }
 
-    public Person getPerson(String name){
-        for(Person p:this.dbp){
-            if(Objects.equals(p.getName(), name)){
-                return p;
-            }
-        }
-        return new Person("error");
-    }
-
-    //Functie om te zien of een persoon in de database zit op naam
+    //see if a person is in the database based on name
     public boolean nameInDatabase(String s)
     {
         for(Person p : dbp)
@@ -108,15 +107,27 @@ public class PersonDatabase extends Database
         return false;
     }
 
+    public Person getPerson(String name){
+        for(Person p : dbp){
+            if(Objects.equals(p.getName(), name)){
+                return p;
+            }
+        }
+        return new Person("error");
+    }
+
+    //sorts the database
     public void sortDatabase()
     {
         Collections.sort(this.dbp);
     }
 
+    //returns the database
     public ArrayList<Person> getDbp() {
         return dbp;
     }
 
+    //returns the reversed database
     public ArrayList<Person> getDbpReversed()
     {
         ArrayList<Person> reversed = new ArrayList<Person>();
@@ -127,6 +138,7 @@ public class PersonDatabase extends Database
         return reversed;
     }
 
+    //clears the database
     @Override
     public void clearDatabase()
     {

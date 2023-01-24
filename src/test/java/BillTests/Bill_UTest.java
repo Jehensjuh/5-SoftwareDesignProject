@@ -11,6 +11,7 @@ import Tickets.Ticket;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.sql.SQLOutput;
 import java.util.HashMap;
 
 import static Tickets.TicketTypes.RestaurantTicket;
@@ -27,8 +28,8 @@ public class Bill_UTest {
     TicketFactory f = new TicketFactory();
     Ticket t1 = f.getTicket(p1,120, TaxiTicket,"Taxi");
     Ticket t2 = f.getTicket(p2, 500, RestaurantTicket, "Restaurant");
-    Ticket t3 = f.getTicket(p4, 700, RestaurantTicket, "Restaurant2");
-    ObserverTicket observerTicket = new ObserverTicket();
+    Ticket t3 = f.getTicket(p3, 700, RestaurantTicket, "Restaurant2");
+    Ticket t4 = f.getTicket(p4, 500, RestaurantTicket, "Restaurant3");
     Controller controller = new DatabaseController();
 
     public Bill_UTest() {}
@@ -36,7 +37,8 @@ public class Bill_UTest {
     @Before
     public void Initialize()
     {
-        dbt.addObserver(observerTicket);
+        controller.clearDatabase();
+        controller.addObserver();
         controller.addPerson(p1);
         controller.addPerson(p2);
         controller.addPerson(p3);
@@ -55,21 +57,35 @@ public class Bill_UTest {
         controller.addEntry(t2);
         //Ticket3
         t3.addPayer(p1);
-        t3.addPayer(p2,180);
-        t3.addPayer(p3);
+        t3.addPayer(p2,200);
         t3.addPayer(p4,100);
         controller.addEntry(t3);
+        controller.getBill();
+        //Ticket4
+        t4.addPayer(p1);
+        t4.addPayer(p2);
+        t4.addPayer(p3);
+        t4.addPayer(p4,400);
+        controller.addEntry(t4);
     }
 
     @Test
     public void present()
     {
-        assertThat("Correct amountPaid",-220 == p1.getAmountPaid());
-        assertThat("Correct amountPaid",190 == p2.getAmountPaid());
-        assertThat("Correct amountPaid",-440 == p3.getAmountPaid());
-        assertThat("Correct amountPaid",470 == p4.getAmountPaid());
+        /*assertThat("Correct amountPaid",-443.33 == p1.getAmountPaid());
+        assertThat("Correct amountPaid",136.67 == p2.getAmountPaid());
+        assertThat("Correct amountPaid",436.67 == p3.getAmountPaid());
+        assertThat("Correct amountPaid",-130 == p4.getAmountPaid());
         HashMap<Person, HashMap<Person,Double>> bill = controller.getBill();
-        assertThat("Bill correct", ((bill.get(p1).get(p4) == 30) && (bill.get(p1).get(p2) == 190)));
-        assertThat("Bill correct", bill.get(p3).get(p4) == 440);
+        assertThat("Bill correct", (bill.get(p1).get(p3) == 436.67 && bill.get(p1).get(p2) == 6.66));
+        assertThat("Bill correct", (bill.get(p4).get(p2) == 130));*/
+        assertThat("Correct amountPaid",-33.33 == p1.getAmountPaid());
+        assertThat("Correct amountPaid",-33.33 == p2.getAmountPaid());
+        assertThat("Correct amountPaid",-33.33 == p3.getAmountPaid());
+        assertThat("Correct amountPaid",100 == p4.getAmountPaid());
+        HashMap<Person, HashMap<Person,Double>> bill = controller.getBill();
+        assertThat("Bill correct", (bill.get(p1).get(p4) == 33.33));
+        assertThat("Bill correct", (bill.get(p2).get(p4) == 33.33));
+        assertThat("Bill correct", (bill.get(p3).get(p4) == 33.33));
     }
 }

@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
+
 import Person.Person;
 
 public class NameListPanel extends JPanel implements ActionListener {
@@ -62,20 +64,26 @@ public class NameListPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==addName){
-            String name = JOptionPane.showInputDialog("Input name: ");
+            String name = JOptionPane.showInputDialog(null, "Input name: ", "Add a person", JOptionPane.QUESTION_MESSAGE);
             while(pdb.nameInDatabase(name)){
                 name = JOptionPane.showInputDialog("Name is already in the list, try again: ");
             }
-            pdb.addPerson(new Person(name));//add person to the database
-            this.nameList.addElement(name);//displays person in the list
+            if (name != null)
+            {
+                pdb.addPerson(new Person(name));//add person to the database
+                this.nameList.addElement(name);//displays person in the list*/
+            }
         }
         else if(e.getSource()==removeButton){
-            String name = JOptionPane.showInputDialog("What name to remove?: ");
+            String name = JOptionPane.showInputDialog(null, "What name to remove?: ", "Remove a person", JOptionPane.QUESTION_MESSAGE);
             while(!pdb.nameInDatabase(name)){
                 name = JOptionPane.showInputDialog("Name is not in list, try again: ");
             }
-            pdb.removePersonName(name);//removes person from the database
-            this.nameList.removeElement(name);//removes person from the displayed list
+            if (name != null)
+            {
+                pdb.removePersonName(name);//removes person from the database
+                this.nameList.removeElement(name);//removes person from the displayed list*
+            }
         }
     }
 }

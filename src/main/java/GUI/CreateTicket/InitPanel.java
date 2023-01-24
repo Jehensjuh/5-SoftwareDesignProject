@@ -31,9 +31,6 @@ public class InitPanel extends JPanel implements ActionListener {
     Button addAmountUpFront;
     Button submit;
     HashMap<JCheckBox,TextField> list;
-
-
-
     JComboBox ticketOptions;
     JComboBox creatorOptions;
     public InitPanel(TicketFrame frame){
@@ -50,7 +47,7 @@ public class InitPanel extends JPanel implements ActionListener {
         //dropdown menu ticket types
         TicketTypes[] ticketTypes = {TicketTypes.AirplaneTicket, TicketTypes.RestaurantTicket, TicketTypes.TaxiTicket, TicketTypes.ConcertTicket,TicketTypes.ChooseTicket};//create selection of options
         this.ticketOptions = new JComboBox(ticketTypes);//create combobox with selection
-        this.ticketOptions.setSelectedIndex(4);//we want chooseticket to be the first option to stimulate the user to select a ticket type (else there won't be any and we'll have an error
+        this.ticketOptions.setSelectedIndex(4);//we want chooseticket to be the first option to stimulate the user to select a ticket type (else there won't be any and we'll have an error)
         this.ticketOptions.addActionListener(this);
         //dropdown with possible creators
         ArrayList<String> possibleCreators = new ArrayList<>();
@@ -139,7 +136,7 @@ public class InitPanel extends JPanel implements ActionListener {
             double amount = 0;
             while(true){
                 try{
-                    amount = Double.parseDouble(JOptionPane.showInputDialog("How much did the creator pay up front?"));
+                    amount = Double.parseDouble(JOptionPane.showInputDialog(null, "How much did the creator pay up front?", "amountUpfront", JOptionPane.QUESTION_MESSAGE));
                     break;
                 }
                 catch(NumberFormatException ignore){
@@ -152,37 +149,32 @@ public class InitPanel extends JPanel implements ActionListener {
             //create ticket
             //first we take a look at who is selected as payer and how much they paid (so all people affected by this ticket)
             for(JCheckBox c:list.keySet()){
-                if(!Objects.equals(c.getText(), creator.getName())){//creater should not be added to payers
-                    if(c.isSelected()){//if the checkbox is selected
-                        double value = 0;
-                        boolean test = false;
-                        while(true){
-                            try{
-                                if(!test){
-                                    value = Double.parseDouble(list.get(c).getText());
-                                }else{
-                                    value = Double.parseDouble(JOptionPane.showInputDialog("How much did "+c.getText()+" pay?"));
-                                }
-                                break;
-
-                            }catch(NumberFormatException ignore){
-                                JOptionPane.showMessageDialog(null,"The value next to "+c.getText()+" is not a value.","Input error",JOptionPane.ERROR_MESSAGE);
-                                test = true;
+                if(c.isSelected()){//if the checkbox is selected
+                    double value = 0;
+                    boolean test = false;
+                    while(true){
+                        try{
+                            if(!test){
+                                value = Double.parseDouble(list.get(c).getText());
+                            }else{
+                                value = Double.parseDouble(JOptionPane.showInputDialog(null, "How much did "+c.getText()+" pay?"));
                             }
+                            break;
+
+                        }catch(NumberFormatException ignore){
+                            JOptionPane.showMessageDialog(null,"The value next to "+c.getText()+" is not a value.","Input error",JOptionPane.ERROR_MESSAGE);
+                            test = true;
                         }
-                        payers.put(frame.pDatabase.getPerson(c.getText()),value);//add the person and their amount paid to the payers hashmap
                     }
+                    payers.put(frame.pDatabase.getPerson(c.getText()),value);//add the person and their amount paid to the payers hashmap
                 }
             }
-            System.out.println("creator: "+creator.getName()+" amountupfront: "+amountUpFront+" type: "+type+" name: "+ticketName);//debug
-            System.out.println("payers: "+payers);//debug
-            Ticket t = frame.f.getTicket(creator,amountUpFront,type,ticketName);//create ticket
+            Ticket t = frame.f.getTicket(creator,amountUpFront,type,ticketName);//create ticket;
             for(Person p:payers.keySet()){
                 t.addPayer(p,payers.get(p));//add all payers to the ticket
             }
-            //t.divideBill();//divide the bill
             frame.tDatabase.addEntry(t);//add ticket to the database
-            PersonDatabase.getInstance().printDatabase();
+            //PersonDatabase.getInstance().printDatabase();
             frame.dispose();//ticket frame will close once ticket is submitted
         }
     }

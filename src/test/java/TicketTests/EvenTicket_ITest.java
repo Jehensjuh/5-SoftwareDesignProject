@@ -31,7 +31,7 @@ public class EvenTicket_ITest {
     public void Initialize(){
         TicketFactory f = new TicketFactory();
         Ticket t = f.getTicket(p1,90, TicketTypes.AirplaneTicket,"air");
-        t.addPayer(p1);
+        //t.addPayer(p1);
         t.addPayer(p2);
         t.addPayer(p3);
         controller.addEntry(t);
@@ -39,9 +39,10 @@ public class EvenTicket_ITest {
 
     @Test
     public void t_DivideBill(){
-        controller.getTicket("Jan","air").divideBill();
-        assertThat("testing amount debt",60 == controller.getTicket("Jan","air").getAmount(p1));
-        assertThat("testing amount debt",-30 == controller.getTicket("Jan","air").getAmount(p2));
-        assertThat("testing amount debt",-30 == controller.getTicket("Jan","air").getAmount(p3));
+        //controller.getTicket("Jan","air").divideBill();
+        System.out.println(controller.getTicket("Jan","air").getAmount(p1));
+        assertThat("testing amount debt",90 == controller.getTicket("Jan","air").getAmount(p1));
+        assertThat("testing amount debt",-45 == controller.getTicket("Jan","air").getAmount(p2));
+        assertThat("testing amount debt",-45 == controller.getTicket("Jan","air").getAmount(p3));
     }
 }

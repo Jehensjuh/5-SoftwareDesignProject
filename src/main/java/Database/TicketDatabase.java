@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
-//Database containing all created Tickets and the Person who created them.
+//database containing all created tickets and the person who created them.
 public class TicketDatabase extends Database{
 
     private final HashMap<Person, ArrayList<Ticket>> tD;
@@ -19,7 +19,8 @@ public class TicketDatabase extends Database{
         this.tD = new HashMap<Person, ArrayList<Ticket>>();
     }
 
-    public static TicketDatabase getInstance(){//singleton
+    //singleton
+    public static TicketDatabase getInstance(){
         if (instance == null){
             instance = new TicketDatabase();
         }
@@ -94,45 +95,9 @@ public class TicketDatabase extends Database{
         return false;
     }
 
-    /*
-    //Een functie die al de tickets teruggeeft
-    public ArrayList<Ticket> getAllTickets()
-    {
-        ArrayList<Ticket> allTickets = new ArrayList<Ticket>();
-        for(Person p:tD.keySet())
-        {
-            for(Ticket t:tD.get(p))
-            {
-                allTickets.add(t);
-            }
-        }
-        return allTickets;
-    }
-    */
-
-    //Functie die al de tickets van de persoon geeft
-    public ArrayList<Ticket> getInvolvedTickets(Person p) {
-        ArrayList<Ticket> involvedTickets = new ArrayList<Ticket>();
-        for (Person i : tD.keySet()) {
-            for (Ticket t : tD.get(i)) {
-                if (t.getCreator() == p) {
-                    involvedTickets.add(t);
-                } else {
-                    for (Person payer : t.getPayers()) {
-                        if (payer == p) {
-                            involvedTickets.add(t);
-                        }
-                    }
-                }
-            }
-        }
-        return involvedTickets;
-    }
-
     @Override
     public void clearDatabase()
     {
         tD.clear();
     }
-
 }

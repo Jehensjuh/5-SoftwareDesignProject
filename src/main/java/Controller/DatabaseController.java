@@ -71,12 +71,6 @@ public class DatabaseController implements Controller {
     }
 
     @Override
-    public void getInvolvedTickets(Person p)
-    {
-        dbt.getInvolvedTickets(p);
-    }
-
-    @Override
     public void addEntry(Ticket ticket) {
         dbt.addEntry(ticket);
     }
@@ -103,38 +97,42 @@ public class DatabaseController implements Controller {
 
     @Override
     public HashMap<Person,HashMap<Person,Double>> getBill() {
-        //Maakt een map aan
+        //makes a map
         HashMap<Person, HashMap<Person, Double>> bill = new HashMap<Person, HashMap<Person, Double>>();
-        //Sorteer de database en laat iedereen betalen
+        //sorts the database
         this.dbp.sortDatabase();
         ArrayList<Person> plist = this.dbp.getDbp();
         ArrayList<Person> rplist = this.dbp.getDbpReversed();
+        dbp.printDatabase();
         for (Person p : plist) {
             HashMap<Person, Double> persondebt = new HashMap<Person, Double>();
-            if (p.getAmountPaid() != 0) {
-                //De persoon moet nog betalen of geld krijgen
-                //Aangezien de lijst gesorteerd is, kan je nooit een persoon met een positief bedrag
-                //tegenkomen --> alleen maar betalen
-                for (Person p2 : rplist) {
+            for (Person p2 : rplist) {
+                if (p.getAmountPaid() < -0.01) {
                     if (p2.getAmountPaid() >= -p.getAmountPaid()) {
-                        //zet in een map dat p aan p2 betaalt
-                        persondebt.put(p2, -p.getAmountPaid());
-                        //p betaalt al zijn schulden aan p2
+                        double roundedDebt = Math.round(p.getAmountPaid()*100);
+                        persondebt.put(p2, -roundedDebt/100);
+                        //p pays everything to p2
                         p2.setAmountPaid(p2.getAmountPaid() + p.getAmountPaid());
                         p.setAmountPaid(0.0);
                         break;
-                    } else {
-                        //zet in een map dat p aan p2 betaalt
-                        persondebt.put(p2, p2.getAmountPaid());
-                        //p betaalt een deel van zijn schulden aan p2
+                    }
+                    else {
+                        double roundedDebt = Math.round(p2.getAmountPaid()*100);
+                        persondebt.put(p2, roundedDebt/100);
+                        //p pays a part to p2
                         p.setAmountPaid(p.getAmountPaid() + p2.getAmountPaid());
                         p2.setAmountPaid(0.0);
                     }
                 }
-                bill.put(p, persondebt);
-                persondebt = null;
+                else
+                {
+                    p.setAmountPaid(0.0);
+                }
             }
+            bill.put(p, persondebt);
+            persondebt = null;
         }
+        dbp.printDatabase();
         return bill;
     }
 
