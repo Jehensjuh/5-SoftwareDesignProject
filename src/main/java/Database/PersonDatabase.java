@@ -13,7 +13,7 @@ public class PersonDatabase extends Database
     private static PersonDatabase instance;
 
     //constructor
-    public PersonDatabase() {
+    private PersonDatabase() {
         this.dbp = new ArrayList<Person>();
     }
 
