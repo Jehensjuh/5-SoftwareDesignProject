@@ -65,7 +65,7 @@ public class InitPanel extends JPanel implements ActionListener {
 //        this.addCreator.addActionListener(this);
         //addAmountUpFront
         this.addAmountUpFront = new Button("add amountupfront");
-        this.addAmountUpFront.setPreferredSize(new Dimension(100,50));
+        this.addAmountUpFront.setPreferredSize(new Dimension(125,50));
         this.addAmountUpFront.addActionListener(this);
         //submit
         this.submit = new Button("submit");
@@ -136,46 +136,67 @@ public class InitPanel extends JPanel implements ActionListener {
             double amount = 0;
             while(true){
                 try{
-                    amount = Double.parseDouble(JOptionPane.showInputDialog(null, "How much did the creator pay up front?", "amountUpfront", JOptionPane.QUESTION_MESSAGE));
+                    String input = JOptionPane.showInputDialog(null, "How much did the creator pay up front?", "amountUpfront", JOptionPane.QUESTION_MESSAGE);
+                    if (input != null)
+                    {
+                        amount = Double.parseDouble(input);
+                    }
                     break;
                 }
                 catch(NumberFormatException ignore){
                     JOptionPane.showMessageDialog(null,"This is not a value!!","Input error",JOptionPane.ERROR_MESSAGE);
                 }
             }
+            if (amount == 0)
+            {
+                JOptionPane.showMessageDialog(null,"The amount is 0!","Amount is 0",JOptionPane.ERROR_MESSAGE);
+            }
             this.amountUpFront=amount;
         }
         else if(e.getSource()==submit){//ticket gets submitted
+            //errors
+            //TicketTypeError
+            if (this.type == null)
+            {
+                JOptionPane.showMessageDialog(null,"No valid ticket type selected, please select one","Wrong type selection",JOptionPane.WARNING_MESSAGE);
+            }
+            //CreatorError
+            else if (this.creator == null)
+            {
+                JOptionPane.showMessageDialog(null,"No valid creator selected, please select one","Wrong type selection",JOptionPane.WARNING_MESSAGE);
+            }
             //create ticket
             //first we take a look at who is selected as payer and how much they paid (so all people affected by this ticket)
-            for(JCheckBox c:list.keySet()){
-                if(c.isSelected()){//if the checkbox is selected
-                    double value = 0;
-                    boolean test = false;
-                    while(true){
-                        try{
-                            if(!test){
-                                value = Double.parseDouble(list.get(c).getText());
-                            }else{
-                                value = Double.parseDouble(JOptionPane.showInputDialog(null, "How much did "+c.getText()+" pay?"));
-                            }
-                            break;
+            else
+            {
+                for(JCheckBox c:list.keySet()){
+                    if(c.isSelected()){//if the checkbox is selected
+                        double value = 0;
+                        boolean test = false;
+                        while(true){
+                            try{
+                                if(!test){
+                                    value = Double.parseDouble(list.get(c).getText());
+                                }else{
+                                    value = Double.parseDouble(JOptionPane.showInputDialog(null, "How much did "+c.getText()+" pay?"));
+                                }
+                                break;
 
-                        }catch(NumberFormatException ignore){
-                            JOptionPane.showMessageDialog(null,"The value next to "+c.getText()+" is not a value.","Input error",JOptionPane.ERROR_MESSAGE);
-                            test = true;
+                            }catch(NumberFormatException ignore){
+                                JOptionPane.showMessageDialog(null,"The value next to "+c.getText()+" is not a value.","Input error",JOptionPane.ERROR_MESSAGE);
+                                test = true;
+                            }
                         }
+                        payers.put(frame.pDatabase.getPerson(c.getText()),value);//add the person and their amount paid to the payers hashmap
                     }
-                    payers.put(frame.pDatabase.getPerson(c.getText()),value);//add the person and their amount paid to the payers hashmap
                 }
+                Ticket t = frame.f.getTicket(creator,amountUpFront,type,ticketName);//create ticket;
+                for(Person p:payers.keySet()){
+                    t.addPayer(p,payers.get(p));//add all payers to the ticket
+                }
+                frame.tDatabase.addEntry(t);//add ticket to the database
+                frame.dispose();//ticket frame will close once ticket is submitted
             }
-            Ticket t = frame.f.getTicket(creator,amountUpFront,type,ticketName);//create ticket;
-            for(Person p:payers.keySet()){
-                t.addPayer(p,payers.get(p));//add all payers to the ticket
-            }
-            frame.tDatabase.addEntry(t);//add ticket to the database
-            //PersonDatabase.getInstance().printDatabase();
-            frame.dispose();//ticket frame will close once ticket is submitted
         }
     }
 }

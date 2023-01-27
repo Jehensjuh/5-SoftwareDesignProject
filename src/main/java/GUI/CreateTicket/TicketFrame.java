@@ -1,5 +1,6 @@
 package GUI.CreateTicket;
 
+import Controller.DatabaseController;
 import Database.PersonDatabase;
 import Database.TicketDatabase;
 import Factory.TicketFactory;

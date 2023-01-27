@@ -69,12 +69,4 @@ public abstract class Ticket {
     public void removePayer(Person person){
         payers.remove(person);
     }
-    //use?
-    public List<Double> getAllAmounts(){
-        ArrayList<Double> amounts = new ArrayList<Double>();
-        for(Person i : payers.keySet()){
-            amounts.add(payers.get(i));
-        }
-        return amounts;
-    }
 }

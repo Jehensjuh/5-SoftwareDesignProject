@@ -53,21 +53,8 @@ public class DatabaseController implements Controller {
     }
 
     @Override
-    public Boolean nameInDatabase(String name) {
+    public boolean nameInDatabase(String name) {
         return dbp.nameInDatabase(name);
-    }
-
-    @Override
-    public void sortDatabase() {}
-
-    @Override
-    public ArrayList<Person> getDbp() {
-        return dbp.getDbp();
-    }
-
-    @Override
-    public ArrayList<Person> getDbpReversed() {
-        return dbp.getDbpReversed();
     }
 
     @Override
@@ -76,23 +63,8 @@ public class DatabaseController implements Controller {
     }
 
     @Override
-    public ArrayList<Ticket> getTickets(Person creator) {
-        return dbt.getTickets(creator);
-    }
-
-    @Override
-    public ArrayList<Person> getCreators() {
-        return dbt.getCreators();
-    }
-
-    @Override
     public Ticket getTicket(String personName, String ticketName) {
         return dbt.getTicket(personName, ticketName);
-    }
-
-    @Override
-    public boolean isCreator(Person creator) {
-        return dbt.isCreator(creator);
     }
 
     @Override
@@ -100,10 +72,8 @@ public class DatabaseController implements Controller {
         //makes a map
         HashMap<Person, HashMap<Person, Double>> bill = new HashMap<Person, HashMap<Person, Double>>();
         //sorts the database
-        this.dbp.sortDatabase();
-        ArrayList<Person> plist = this.dbp.getDbp();
+        ArrayList<Person> plist = this.dbp.getDbpSorted();
         ArrayList<Person> rplist = this.dbp.getDbpReversed();
-        dbp.printDatabase();
         for (Person p : plist) {
             HashMap<Person, Double> persondebt = new HashMap<Person, Double>();
             for (Person p2 : rplist) {
@@ -116,7 +86,7 @@ public class DatabaseController implements Controller {
                         p.setAmountPaid(0.0);
                         break;
                     }
-                    else {
+                    else if (p2.getAmountPaid() > 0.01){
                         double roundedDebt = Math.round(p2.getAmountPaid()*100);
                         persondebt.put(p2, roundedDebt/100);
                         //p pays a part to p2
@@ -130,9 +100,7 @@ public class DatabaseController implements Controller {
                 }
             }
             bill.put(p, persondebt);
-            persondebt = null;
         }
-        dbp.printDatabase();
         return bill;
     }
 

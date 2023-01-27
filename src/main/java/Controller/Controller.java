@@ -24,23 +24,11 @@ public interface Controller
 
     public boolean inDatabase(Person p);
 
-    public Boolean nameInDatabase(String name);
-
-    public void sortDatabase();
-
-    public ArrayList<Person> getDbp();
-
-    public ArrayList<Person> getDbpReversed();
+    public boolean nameInDatabase(String name);
 
     public void addEntry(Ticket ticket);
 
-    public ArrayList<Ticket> getTickets(Person creator);
-
-    public ArrayList<Person> getCreators();
-
     public Ticket getTicket(String personName, String ticketName);
-
-    public boolean isCreator(Person creator);
 
     public HashMap<Person, HashMap<Person, Double>> getBill();
 

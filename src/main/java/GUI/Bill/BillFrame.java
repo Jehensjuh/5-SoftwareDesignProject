@@ -17,7 +17,7 @@ public class BillFrame extends JFrame implements ActionListener {
     TicketDatabase ticketDatabase;
     DatabaseController c;
 
-    JButton shutdown;
+    JButton close;
     public BillFrame(PersonDatabase personDatabase, TicketDatabase ticketDatabase, DatabaseController c){
         this.personDatabase=personDatabase;
         this.ticketDatabase=ticketDatabase;
@@ -29,10 +29,10 @@ public class BillFrame extends JFrame implements ActionListener {
         this.setSize(500,397);
         this.setVisible(true);
         this.setLayout(new BorderLayout());
-        this.shutdown = new JButton("Close App");
-        this.shutdown.addActionListener(this);
+        this.close = new JButton("Close");
+        this.close.addActionListener(this);
         this.createBillPanel();
-        this.add(shutdown, BorderLayout.SOUTH);
+        this.add(close, BorderLayout.SOUTH);
     }
 
     private void createBillPanel(){
@@ -79,7 +79,7 @@ public class BillFrame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==shutdown){
+        if(e.getSource()==close){
             this.dispose();
             //System.exit(0);//close program (bill has been calculated so we have no more use for it)
         }

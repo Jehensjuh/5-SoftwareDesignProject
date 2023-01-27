@@ -10,7 +10,7 @@ public class PersonDatabase extends Database
 {
     //list with all the persons
     private final ArrayList<Person> dbp;
-    private static PersonDatabase instance;
+    private static PersonDatabase instance = null;
 
     //constructor
     private PersonDatabase() {
@@ -32,11 +32,6 @@ public class PersonDatabase extends Database
         {
             this.dbp.add(p);
         }
-        else
-        {
-            //create a pop-up
-            System.out.println("Person already in database");
-        }
     }
 
     //remove a person
@@ -44,17 +39,7 @@ public class PersonDatabase extends Database
     {
         if(this.dbp.contains(p))
         {
-            if(p.getAmountPaid() != 0)
-            {
-                //creates a pop-up
-                System.out.println("Person still has to pay");
-            }
             this.dbp.remove(p);
-        }
-        else
-        {
-            //create a pop-up
-            System.out.println("Person not in database");
         }
     }
 
@@ -65,16 +50,10 @@ public class PersonDatabase extends Database
         {
             if(Objects.equals(p.getName(), s))
             {
-                if(p.getAmountPaid() != 0)
-                {
-                    //creates a pop-up
-                    System.out.println("Person still has to pay");
-                }
                 this.removePerson(p);
                 break;
             }
         }
-        System.out.println("Person not in database");
     }
 
     //print the list
@@ -116,15 +95,17 @@ public class PersonDatabase extends Database
         return new Person("error");
     }
 
-    //sorts the database
-    public void sortDatabase()
-    {
-        Collections.sort(this.dbp);
-    }
-
     //returns the database
     public ArrayList<Person> getDbp() {
         return dbp;
+    }
+
+    //sorts the database
+    public ArrayList<Person> getDbpSorted()
+    {
+        ArrayList<Person> sorted = this.dbp;
+        Collections.sort(sorted);
+        return sorted;
     }
 
     //returns the reversed database

@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 
+import Factory.PersonFactory;
 import Person.Person;
 
 public class NameListPanel extends JPanel implements ActionListener {
@@ -16,10 +17,12 @@ public class NameListPanel extends JPanel implements ActionListener {
     JPanel namePanel;
     JPanel removePanel;
     PersonDatabase pdb;
+    PersonFactory pf;
     private DefaultListModel<String> nameList;
     private JList<String> names;
-    public NameListPanel(PersonDatabase pdb){
+    public NameListPanel(PersonDatabase pdb, PersonFactory pf){
         this.pdb = pdb;
+        this.pf = pf;
         this.setBounds(0,0,250,720/2);
         this.setLayout(new BorderLayout(10,0));
 
@@ -70,19 +73,31 @@ public class NameListPanel extends JPanel implements ActionListener {
             }
             if (name != null)
             {
-                pdb.addPerson(new Person(name));//add person to the database
+                pdb.addPerson(pf.getPerson(name));//add person to the database
                 this.nameList.addElement(name);//displays person in the list*/
             }
         }
         else if(e.getSource()==removeButton){
             String name = JOptionPane.showInputDialog(null, "What name to remove?: ", "Remove a person", JOptionPane.QUESTION_MESSAGE);
-            while(!pdb.nameInDatabase(name)){
+            while(!pdb.nameInDatabase(name) && name != null){
                 name = JOptionPane.showInputDialog("Name is not in list, try again: ");
             }
-            if (name != null)
-            {
-                pdb.removePersonName(name);//removes person from the database
-                this.nameList.removeElement(name);//removes person from the displayed list*
+            if (name != null) {
+                int i = 0;
+                for (Person p : pdb.getDbp()) {
+                    if (Objects.equals(p.getName(), name)) {
+                        if (p.getAmountPaid() != 0) {
+                            i = JOptionPane.showConfirmDialog(null, "The person still has to pay! Do you still want to remove the person?", "Remove Person?", JOptionPane.YES_NO_OPTION);
+                            System.out.println(i);
+                        }
+                        break;
+                    }
+                }
+                if (i == 0)
+                {
+                    pdb.removePersonName(name);//removes person from the database
+                    this.nameList.removeElement(name);//removes person from the displayed list*
+                }
             }
         }
     }

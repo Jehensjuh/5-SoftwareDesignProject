@@ -42,7 +42,7 @@ public class CreateTicketPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==addTicket){
             //open create ticket frame
-            TicketFrame ticketFrame = new TicketFrame(personDatabase,ticketDatabase, f);//opens create ticket window
+            TicketFrame ticketFrame = new TicketFrame(personDatabase,ticketDatabase,f);//opens create ticket window
         }
         else if(e.getSource()==calculateBill){
             //open window with calculated bill
