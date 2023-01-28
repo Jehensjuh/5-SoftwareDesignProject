@@ -36,7 +36,6 @@ public class PersonDatabase_ITest
         controller.removePerson(p1);
         controller.removePersonName("An");
         controller.printPersonDatabase();
-        controller.sortDatabase();
         controller.printPersonDatabase();
     }
 

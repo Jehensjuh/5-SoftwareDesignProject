@@ -39,7 +39,7 @@ public class DebugRunner {
         c.clearDatabase();
         c.addObserver();
         this.frame = new MainFrame(personDatabase,ticketDatabase,tf,pf,c);
-        Person p1 = pf.getPerson("p1");
+        /*Person p1 = pf.getPerson("p1");
         Person p2 = pf.getPerson("p2");
         Person p3 = pf.getPerson("p3");
         Person p4 = pf.getPerson("p4");
@@ -69,7 +69,7 @@ public class DebugRunner {
         t4.addPayer(p2);
         t4.addPayer(p3);
         t4.addPayer(p4,400);
-        c.addEntry(t4);
+        c.addEntry(t4);*/
     }
     public static void main(String[] arg){
         new DebugRunner();
