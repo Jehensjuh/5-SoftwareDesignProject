@@ -30,6 +30,8 @@ public class TicketDatabase extends Observable {
 
     public void addEntry(Ticket ticket) {
         ticket.divideBill(); //doet automitisch de berekening
+        setChanged();
+        notifyObservers(ticket);
         for(Person i: tD.keySet()){
             if(i == ticket.getCreator()){//if the person is already in the hashmap
                 tD.get(i).add(ticket);//add the ticket to their arraylist
@@ -40,8 +42,6 @@ public class TicketDatabase extends Observable {
         ticketList.add(ticket);//add the ticket to the arraylist
         tD.put(ticket.getCreator(),ticketList);//create new entry in the hashmap for this person
         //Geef het ticket door om persoon up te daten
-        setChanged();
-        notifyObservers(ticket);
     }
 
     public HashMap<Person, ArrayList<Ticket>> getDatabase() {
