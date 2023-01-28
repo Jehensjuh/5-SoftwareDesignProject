@@ -5,5 +5,5 @@ public enum TicketTypes {
     RestaurantTicket,
     TaxiTicket,
     ConcertTicket,
-    OtherTicket
+    ChooseTicket
 }

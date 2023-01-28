@@ -1,87 +1,60 @@
 package Database;
 
 import Person.Person;
-import Tickets.Ticket;
-import Database.TicketDatabase;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Objects;
-import java.util.Observer;
+import java.util.*;
 
-public class PersonDatabase extends Database
+public class PersonDatabase extends Observable
 {
-    //Lijst met al de personen
+    //list with all the persons
     private final ArrayList<Person> dbp;
-    private static PersonDatabase instance;
+    private static PersonDatabase instance = null;
 
-    //Constructor
-    public PersonDatabase() {
+    //constructor
+    private PersonDatabase() {
         this.dbp = new ArrayList<Person>();
     }
 
-    public static PersonDatabase getInstance(){//singleton
+    //singleton
+    public static PersonDatabase getInstance(){
         if (instance == null){
             instance = new PersonDatabase();
         }
         return instance;
     }
 
-    //Functie om een persoon toe te voegen
+    //add a person
     public void addPerson(Person p)
     {
-        if(this.dbp.indexOf(p) == -1)
+        if(!this.dbp.contains(p))
         {
             this.dbp.add(p);
         }
     }
 
-    //Functie om een persoon te verwijderen
-    //error geven als de persoon nog moet betalen?
+    //remove a person
     public void removePerson(Person p)
     {
-        if(this.dbp.indexOf(p) != -1)
+        if(this.dbp.contains(p))
         {
-            if(p.getAmountPaid() != 0)
-            {
-                this.dbp.remove(p);
-                p.setAmountPaid(0);
-            }
-            else
-            {
-                System.out.println("Person still has to pay");
-            }
-        }
-        else
-        {
-            System.out.println("Person not in database");
+            this.dbp.remove(p);
         }
     }
 
-    //Functie om een persoon te verwijderen op naam
+    //remove person based on name
     public void removePersonName(String s)
     {
         for(Person p : dbp)
         {
             if(Objects.equals(p.getName(), s))
             {
-                if(p.getAmountPaid() != 0)
-                {
-                    this.dbp.remove(p);
-                    p.setAmountPaid(0);
-                    break;
-                }
-                else
-                {
-                    System.out.println("Person still has to pay");
-                    break;
-                }
+                this.removePerson(p);
+                break;
             }
         }
-        System.out.println("Person not in database");
     }
 
-    //Functie om de lijst te printen
+    //print the list
     public void printDatabase()
     {
         System.out.println("Personen");
@@ -92,20 +65,13 @@ public class PersonDatabase extends Database
         System.out.println();
     }
 
-    //Functie om te zien of een persoon in de database zit
+    //see if a person is in the database
     public boolean inDatabase(Person p)
     {
-        if(this.dbp.indexOf(p) != -1)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return this.dbp.contains(p);
     }
 
-    //Functie om te zien of een persoon in de database zit op naam
+    //see if a person is in the database based on name
     public boolean nameInDatabase(String s)
     {
         for(Person p : dbp)
@@ -118,15 +84,29 @@ public class PersonDatabase extends Database
         return false;
     }
 
-    public void sortDatabase()
-    {
-        Collections.sort(this.dbp);
+    public Person getPerson(String name){
+        for(Person p : dbp){
+            if(Objects.equals(p.getName(), name)){
+                return p;
+            }
+        }
+        return new Person("error");
     }
 
+    //returns the database
     public ArrayList<Person> getDbp() {
         return dbp;
     }
 
+    //sorts the database
+    public ArrayList<Person> getDbpSorted()
+    {
+        ArrayList<Person> sorted = this.dbp;
+        Collections.sort(sorted);
+        return sorted;
+    }
+
+    //returns the reversed database
     public ArrayList<Person> getDbpReversed()
     {
         ArrayList<Person> reversed = new ArrayList<Person>();
@@ -135,5 +115,11 @@ public class PersonDatabase extends Database
             reversed.add(dbp.get(i));
         }
         return reversed;
+    }
+
+    //clears the database
+    public void clearDatabase()
+    {
+        dbp.clear();
     }
 }

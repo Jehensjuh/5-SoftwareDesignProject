@@ -16,26 +16,25 @@ public class UnevenTicket extends Ticket{
      */
     @Override
     public void divideBill() {
-    //alle mensen die al een value hebben moeten niets meer betalen. totaal - bedragen al betaald / mensen die nog niets betaald hebben = bedrag dat mensen die nog niets betaald hebben moeten betalen
+    //uneven: people who paid upfront have already paid so they don't have to pay extra. The rest gets divided over all other members evenly
         double tempValue = this.amountUpfront;
         ArrayList<Person> indebted = new ArrayList<Person>();
         for(Person i : payers.keySet()){
             if(this.getAmount(i) == 0){ //if the person in question hasn't paid anything yet
-                indebted.add(i);    //person get's added to the list
+                indebted.add(i);    //person gets added to the list
             }
             else{
+                tempValue -= this.getAmount(i); //total amount of debt decreases because a bit was already paid back
                 if(i != this.creator){ //creator has paid upfront so value does not have to change
-                    tempValue -= this.getAmount(i); //total amount of debt decreases because a bit was already paid back
                     payers.put(i, -this.getAmount(i)); //person has paid this amount so their value becomes a negative one now (used for further computations)
                 }
                 else
                 {
-                    tempValue -= this.getAmount(i);
                     payers.put(i,amountUpfront-this.getAmount(i));
                 }
             }
         }
-        double amountDue = tempValue/indebted.size(); //remainder of debt get's evenly devided over all remaining persons
+        double amountDue = tempValue/(indebted.size()); //remainder of debt gets evenly divided over all remaining payers
         for(Person i:indebted)
         {
             if(i != this.creator)
@@ -44,8 +43,12 @@ public class UnevenTicket extends Ticket{
             }
             else
             {
-                payers.put(i,this.amountUpfront-amountDue);
+                payers.put(i,amountUpfront-amountDue);
             }
+        }
+        if (!payers.containsKey(creator))
+        {
+            payers.put(this.creator, this.amountUpfront);
         }
     }
 }
