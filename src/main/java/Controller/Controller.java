@@ -1,38 +1,43 @@
 package Controller;
 
-import Database.Database;
 import Database.TicketDatabase;
+import Factory.PersonFactory;
 import Factory.TicketFactory;
-import Database.TicketDatabase;
 import Person.Person;
 import Database.PersonDatabase;
 import Tickets.Ticket;
-import Tickets.TicketTypes;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
-public interface Controller
+public abstract interface Controller
 {
-    public void addPerson(Person p);
+    public abstract PersonDatabase getDatabasePerson();
 
-    public void removePerson(Person p);
+    public abstract TicketDatabase getDatabaseTicket();
 
-    public void removePersonName(String name);
+    public abstract PersonFactory getPersonFactory();
 
-    public void printPersonDatabase();
+    public abstract TicketFactory getTicketFactory();
 
-    public boolean inDatabase(Person p);
+    public abstract void addPerson(Person p);
 
-    public boolean nameInDatabase(String name);
+    public abstract void removePerson(Person p);
 
-    public void addEntry(Ticket ticket);
+    public abstract void removePersonName(String name);
 
-    public Ticket getTicket(String personName, String ticketName);
+    public abstract void printPersonDatabase();
 
-    public HashMap<Person, HashMap<Person, Double>> getBill();
+    public abstract boolean inDatabase(Person p);
 
-    public void clearDatabase();
+    public abstract boolean nameInDatabase(String name);
 
-    public void addObserver();
+    public abstract void addEntry(Ticket ticket);
+
+    public abstract Ticket getTicket(String personName, String ticketName);
+
+    public abstract HashMap<Person, HashMap<Person, Double>> getBill();
+
+    public abstract void clearDatabase();
+
+    public abstract void addObserver();
 }

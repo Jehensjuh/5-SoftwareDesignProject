@@ -1,5 +1,6 @@
 package GUI.Bill;
 
+import Controller.Controller;
 import Controller.DatabaseController;
 import Database.PersonDatabase;
 import Database.TicketDatabase;
@@ -13,14 +14,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class BillFrame extends JFrame implements ActionListener {
-    PersonDatabase personDatabase;
-    TicketDatabase ticketDatabase;
-    DatabaseController c;
+    Controller c;
 
     JButton close;
-    public BillFrame(PersonDatabase personDatabase, TicketDatabase ticketDatabase, DatabaseController c){
-        this.personDatabase=personDatabase;
-        this.ticketDatabase=ticketDatabase;
+    public BillFrame(Controller c){
         this.c =c;
 
         this.setTitle("Bill");

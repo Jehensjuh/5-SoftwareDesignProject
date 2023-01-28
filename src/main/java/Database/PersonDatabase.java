@@ -2,11 +2,9 @@ package Database;
 
 import Person.Person;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Objects;
+import java.util.*;
 
-public class PersonDatabase extends Database
+public class PersonDatabase extends Observable
 {
     //list with all the persons
     private final ArrayList<Person> dbp;
@@ -120,7 +118,6 @@ public class PersonDatabase extends Database
     }
 
     //clears the database
-    @Override
     public void clearDatabase()
     {
         dbp.clear();

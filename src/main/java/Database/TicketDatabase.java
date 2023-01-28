@@ -8,9 +8,10 @@ import Tickets.TicketTypes;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.Observable;
 
 //database containing all created tickets and the person who created them.
-public class TicketDatabase extends Database{
+public class TicketDatabase extends Observable {
 
     private final HashMap<Person, ArrayList<Ticket>> tD;
     private static TicketDatabase instance = null;
@@ -82,7 +83,6 @@ public class TicketDatabase extends Database{
         return false;
     }
 
-    @Override
     public void clearDatabase()
     {
         tD.clear();

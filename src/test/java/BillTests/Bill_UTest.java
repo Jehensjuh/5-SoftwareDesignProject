@@ -60,7 +60,6 @@ public class Bill_UTest {
         t3.addPayer(p2,200);
         t3.addPayer(p4,100);
         controller.addEntry(t3);
-        controller.getBill();
         //Ticket4
         t4.addPayer(p1);
         t4.addPayer(p2);
@@ -72,20 +71,20 @@ public class Bill_UTest {
     @Test
     public void present()
     {
-        /*assertThat("Correct amountPaid",-443.33 == p1.getAmountPaid());
+        assertThat("Correct amountPaid",-443.33 == p1.getAmountPaid());
         assertThat("Correct amountPaid",136.67 == p2.getAmountPaid());
         assertThat("Correct amountPaid",436.67 == p3.getAmountPaid());
         assertThat("Correct amountPaid",-130 == p4.getAmountPaid());
         HashMap<Person, HashMap<Person,Double>> bill = controller.getBill();
         assertThat("Bill correct", (bill.get(p1).get(p3) == 436.67 && bill.get(p1).get(p2) == 6.66));
-        assertThat("Bill correct", (bill.get(p4).get(p2) == 130));*/
-        assertThat("Correct amountPaid",-33.33 == p1.getAmountPaid());
+        assertThat("Bill correct", (bill.get(p4).get(p2) == 130));
+        /*assertThat("Correct amountPaid",-33.33 == p1.getAmountPaid());
         assertThat("Correct amountPaid",-33.33 == p2.getAmountPaid());
         assertThat("Correct amountPaid",-33.33 == p3.getAmountPaid());
         assertThat("Correct amountPaid",100 == p4.getAmountPaid());
         HashMap<Person, HashMap<Person,Double>> bill = controller.getBill();
         assertThat("Bill correct", (bill.get(p1).get(p4) == 33.33));
         assertThat("Bill correct", (bill.get(p2).get(p4) == 33.33));
-        assertThat("Bill correct", (bill.get(p3).get(p4) == 33.33));
+        assertThat("Bill correct", (bill.get(p3).get(p4) == 33.33));*/
     }
 }

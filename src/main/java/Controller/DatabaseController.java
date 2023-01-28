@@ -1,5 +1,7 @@
 package Controller;
 
+import Factory.PersonFactory;
+import Factory.TicketFactory;
 import Observers.ObserverTicket;
 import Person.Person;
 import Database.TicketDatabase;
@@ -13,20 +15,37 @@ public class DatabaseController implements Controller {
 
     private final PersonDatabase dbp;
     private final TicketDatabase dbt;
+    private final PersonFactory Pf;
+    private final TicketFactory Tf;
 
     public DatabaseController() {
         this.dbp = PersonDatabase.getInstance();
         this.dbt = TicketDatabase.getInstance();
+        this.Pf = new PersonFactory();
+        this.Tf = new TicketFactory();
+        this.addObserver();
+        this.clearDatabase();
     }
-    //temporary
-    public PersonDatabase getPersonDatabase(){
+
+    @Override
+    public PersonDatabase getDatabasePerson() {
         return this.dbp;
     }
 
-    public TicketDatabase getTicketDatabase(){
+    @Override
+    public TicketDatabase getDatabaseTicket() {
         return this.dbt;
     }
 
+    @Override
+    public PersonFactory getPersonFactory() {
+        return this.Pf;
+    }
+
+    @Override
+    public TicketFactory getTicketFactory() {
+        return this.Tf;
+    }
     @Override
     public void addPerson(Person p) {
         dbp.addPerson(p);

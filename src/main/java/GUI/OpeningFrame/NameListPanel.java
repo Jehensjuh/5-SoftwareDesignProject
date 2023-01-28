@@ -1,5 +1,7 @@
 package GUI.OpeningFrame;
 
+import Controller.Controller;
+import Controller.DatabaseController;
 import Database.PersonDatabase;
 
 import javax.swing.*;
@@ -9,6 +11,9 @@ import java.awt.event.ActionListener;
 import java.util.Objects;
 
 import Factory.PersonFactory;
+import Factory.TicketFactory;
+import Iterator.Iterator;
+import Iterator.PersonDbIterator;
 import Person.Person;
 
 public class NameListPanel extends JPanel implements ActionListener {
@@ -16,13 +21,15 @@ public class NameListPanel extends JPanel implements ActionListener {
     Button removeButton;
     JPanel namePanel;
     JPanel removePanel;
-    PersonDatabase pdb;
+    Controller c;
     PersonFactory pf;
+    TicketFactory tf;
     private DefaultListModel<String> nameList;
     private JList<String> names;
-    public NameListPanel(PersonDatabase pdb, PersonFactory pf){
-        this.pdb = pdb;
-        this.pf = pf;
+    public NameListPanel(Controller c){
+        this.c = c;
+        this.tf = c.getTicketFactory();
+        this.pf = c.getPersonFactory();
         this.setBounds(0,0,250,720/2);
         this.setLayout(new BorderLayout(10,0));
 
@@ -40,7 +47,13 @@ public class NameListPanel extends JPanel implements ActionListener {
 
         this.names = new JList(this.nameList);
         this.names.setAutoscrolls(true);
-
+        if(!c.getDatabasePerson().getDbp().isEmpty()){
+            Iterator i = new PersonDbIterator(c.getDatabasePerson());
+            while(!i.end()){
+                this.nameList.addElement(i.current().toString());
+                i.next();
+            }
+        }
         JPanel buttonPanel = new JPanel();//panel to show add name button
         buttonPanel.setBounds(5,5,240,50);
         buttonPanel.setBackground(Color.DARK_GRAY);//debug
@@ -68,34 +81,33 @@ public class NameListPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==addName){
             String name = JOptionPane.showInputDialog(null, "Input name: ", "Add a person", JOptionPane.QUESTION_MESSAGE);
-            while(pdb.nameInDatabase(name)){
+            while(c.nameInDatabase(name)){
                 name = JOptionPane.showInputDialog("Name is already in the list, try again: ");
             }
             if (name != null)
             {
-                pdb.addPerson(pf.getPerson(name));//add person to the database
+                c.addPerson(pf.getPerson(name));//add person to the database
                 this.nameList.addElement(name);//displays person in the list*/
             }
         }
         else if(e.getSource()==removeButton){
             String name = JOptionPane.showInputDialog(null, "What name to remove?: ", "Remove a person", JOptionPane.QUESTION_MESSAGE);
-            while(!pdb.nameInDatabase(name) && name != null){
+            while(!c.nameInDatabase(name) && name != null){
                 name = JOptionPane.showInputDialog("Name is not in list, try again: ");
             }
             if (name != null) {
                 int i = 0;
-                for (Person p : pdb.getDbp()) {
+                for (Person p : c.getDatabasePerson().getDbp()) {
                     if (Objects.equals(p.getName(), name)) {
                         if (p.getAmountPaid() != 0) {
                             i = JOptionPane.showConfirmDialog(null, "The person still has to pay! Do you still want to remove the person?", "Remove Person?", JOptionPane.YES_NO_OPTION);
-                            System.out.println(i);
                         }
                         break;
                     }
                 }
                 if (i == 0)
                 {
-                    pdb.removePersonName(name);//removes person from the database
+                    c.removePersonName(name);//removes person from the database
                     this.nameList.removeElement(name);//removes person from the displayed list*
                 }
             }

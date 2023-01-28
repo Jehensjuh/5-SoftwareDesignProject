@@ -12,12 +12,12 @@ public class TicketIterator extends Iterator{
     }
 
     @Override
-    boolean end() {
+    public boolean end() {
         return this.index == tickets.size();
     }
 
     @Override
-    void next() {
+    public void next() {
         if(!this.end()){//if we are not at the last element
             index++;//go to the next element
         }else{
@@ -26,7 +26,7 @@ public class TicketIterator extends Iterator{
     }
 
     @Override
-    void prev() {
+    public void prev() {
         if(!(this.index == 0)){//if we are not at the start
             index--;//go back an element
         }else{
@@ -35,12 +35,12 @@ public class TicketIterator extends Iterator{
     }
 
     @Override
-    Object first() {
+    public Object first() {
         return tickets.get(0);
     }
 
     @Override
-    Object current() {
+    public Object current() {
         return tickets.get(index);
     }
 }

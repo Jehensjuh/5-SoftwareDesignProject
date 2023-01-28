@@ -3,7 +3,6 @@ package TicketTests;
 import Database.TicketDatabase;
 import Controller.Controller;
 import Controller.DatabaseController;
-import Database.Database;
 import Database.PersonDatabase;
 import Factory.TicketFactory;
 import Person.Person;

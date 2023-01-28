@@ -11,12 +11,12 @@ public class PersonDbIterator extends Iterator{
     }
 
     @Override
-    boolean end() {
+    public boolean end() {
         return this.index == database.getDbp().size();//if we reached the end we'll be at the last index
     }
 
     @Override
-    void next() {
+    public void next() {
         if(!this.end()){//if we are not at the last element
             index++;//go to the next element
         }else{
@@ -25,7 +25,7 @@ public class PersonDbIterator extends Iterator{
     }
 
     @Override
-    void prev() {
+    public void prev() {
         if(!(this.index == 0)){//if we are not at the start
             index--;//go back an element
         }else{
@@ -34,12 +34,12 @@ public class PersonDbIterator extends Iterator{
     }
 
     @Override
-    Object first() {
-        return database.getDbp().get(0);
+    public Object first() {
+        return database.getDbp().get(0).getName();
     }
 
     @Override
-    Object current() {
-        return database.getDbp().get(this.index);
+   public Object current() {
+        return database.getDbp().get(this.index).getName();
     }
 }

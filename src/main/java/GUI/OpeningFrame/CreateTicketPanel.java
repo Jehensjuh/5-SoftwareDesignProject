@@ -1,5 +1,6 @@
 package GUI.OpeningFrame;
 
+import Controller.Controller;
 import Controller.DatabaseController;
 import Database.PersonDatabase;
 import Database.TicketDatabase;
@@ -13,17 +14,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CreateTicketPanel extends JPanel implements ActionListener {
+    PersonDatabase personDatabase;
+    TicketDatabase ticketDatabase;
     Button addTicket;
     Button calculateBill;
-    TicketDatabase ticketDatabase;
-    PersonDatabase personDatabase;
-    TicketFactory f;
-    DatabaseController c;
-    public CreateTicketPanel(PersonDatabase personDatabase, TicketDatabase ticketDatabase, TicketFactory f, DatabaseController c){
-        this.personDatabase=personDatabase;
-        this.ticketDatabase=ticketDatabase;
-        this.f = f;
+    Controller c;
+    public CreateTicketPanel(Controller c){
         this.c = c;
+        this.personDatabase=c.getDatabasePerson();
+        this.ticketDatabase=c.getDatabaseTicket();
+
 
         this.setBounds(250,0,250,720/2);
         this.setBackground(Color.BLACK);
@@ -42,11 +42,11 @@ public class CreateTicketPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==addTicket){
             //open create ticket frame
-            TicketFrame ticketFrame = new TicketFrame(personDatabase,ticketDatabase,f);//opens create ticket window
+            TicketFrame ticketFrame = new TicketFrame(c);//opens create ticket window
         }
         else if(e.getSource()==calculateBill){
             //open window with calculated bill
-            BillFrame billFrame = new BillFrame(personDatabase, ticketDatabase, c);//opens bill window
+            BillFrame billFrame = new BillFrame(c);//opens bill window
         }
     }
 }
