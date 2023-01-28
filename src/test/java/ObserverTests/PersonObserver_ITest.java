@@ -7,9 +7,6 @@ import Factory.TicketFactory;
 import Observers.ObserverTicket;
 import Controller.DatabaseController;
 import Tickets.Ticket;
-import Tickets.EvenTicket;
-import Tickets.UnevenTicket;
-import Tickets.TicketTypes;
 import Person.Person;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +15,7 @@ import static Tickets.TicketTypes.RestaurantTicket;
 import static Tickets.TicketTypes.TaxiTicket;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class PersonObserver_UTest {
+public class PersonObserver_ITest {
     PersonDatabase dbp = PersonDatabase.getInstance();
     TicketDatabase dbt = TicketDatabase.getInstance();
     Person p1 = new Person("Jan");
@@ -30,7 +27,7 @@ public class PersonObserver_UTest {
     ObserverTicket observerTicket = new ObserverTicket();
     Controller controller = new DatabaseController();
 
-    public PersonObserver_UTest() {}
+    public PersonObserver_ITest() {}
 
     @Before
     public void Initialize()

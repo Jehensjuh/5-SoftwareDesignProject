@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class PersonFactory_UTest
+public class PersonFactory_ITest
 {
     PersonDatabase dbp = PersonDatabase.getInstance();
     TicketDatabase dbt = TicketDatabase.getInstance();
@@ -24,7 +24,7 @@ public class PersonFactory_UTest
 
     Controller controller = new DatabaseController();
 
-    public PersonFactory_UTest() {}
+    public PersonFactory_ITest() {}
 
     @Before
     public void Initialize()

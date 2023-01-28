@@ -5,20 +5,18 @@ import Database.PersonDatabase;
 import Database.TicketDatabase;
 import Controller.DatabaseController;
 import Factory.TicketFactory;
-import Observers.ObserverTicket;
 import Person.Person;
 import Tickets.Ticket;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.sql.SQLOutput;
 import java.util.HashMap;
 
 import static Tickets.TicketTypes.RestaurantTicket;
 import static Tickets.TicketTypes.TaxiTicket;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class Bill_UTest {
+public class Bill_ITest {
     PersonDatabase dbp = PersonDatabase.getInstance();
     TicketDatabase dbt = TicketDatabase.getInstance();
     Person p1 = new Person("An");
@@ -32,7 +30,7 @@ public class Bill_UTest {
     Ticket t4 = f.getTicket(p4, 500, RestaurantTicket, "Restaurant3");
     Controller controller = new DatabaseController();
 
-    public Bill_UTest() {}
+    public Bill_ITest() {}
 
     @Before
     public void Initialize()
